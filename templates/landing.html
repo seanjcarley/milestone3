@@ -1,60 +1,46 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="row">
-  <div class="col-md-4">
-    <div class="row">
+  <div class="col-md-8 main-section">
+    <div class="row mobile">
       <div class="col">
-        <h3>What's it all about?</h3>
-        <p>
-          This site allows you to create a reading list of books or comics you would
-          like to read, TV shows or movies you'd like to watch, or games you'd like
-          to play. For inspiration, see the public lists below with suggestions
-          from other users. Sign up to save your own lists.
-          <br/>
-          You can even check off completed items to keep tack of your progress.
-          Lists can be edited to add or remove items, and they can be kept private
-          or shared with other users. You decide.
-          <br/>
-          Look around, and then <a href="#">sign up</a> or <a href="#">sign in</a>
-          to get going.
-        </p>
+        <h3 class="section-header">Public Lists</h3>
       </div>
     </div>
-  </div>
-  <div class="col-md-8">
     <div class="row">
       <div class="col-md-6">
-        <h3>Public Lists</h3>
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
+        <h4 class="section-header">Top 5 Lists</h4>
+        <ol>
+          <li>Tim's Harry Potter</li>
+          <li>Fred's Matrix</li>
+          <li>John's Scrubs</li>
+          <li>Sean's Injustice - Gods Among Us</li>
+          <li>Jane's Game of Thrones</li>
+        </ol>
       </div>
-      <div class="col-md-6">
-        <h4>List # Items</h4>
+      <div class="col-md-6 mobile">
+        <h4 class="section-header">List # Items</h4>
         <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
+          <li>Harry Potter and the Philosophers Stone</li>
+          <li>Harry Potter and the Chamber of Secrets</li>
+          <li>Harry Potter and the Prisoner of Azkaban</li>
+          <li>Harry Potter and the Goblet of Fire</li>
+          <li>Harry Potter and the Order of the Phenoix</li>
+          <li>Harry Potter and the Half-Blood Prince</li>
+          <li>Harry Potter and the Deathly Hallows</li>
         </ul>
       </div>
     </div>
     <div class="row">
+
+    </div>
+    <!-- <div class="row">
       <div class="col">
-        <h3>Sign Up/In</h3>
+        <h3 class="section-header">Sign Up/In</h3>
         <button type="button" name="button">Sign Up</button>
         <button type="button" name="button">Sign In</button>
       </div>
-    </div>
+    </div> -->
   </div>
-</div>
 
 {% endblock %}
