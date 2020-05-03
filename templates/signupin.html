@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="section-header">Sign Up/Log In</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
+      <button type="button" name="button">
+        <a href="{{ url_for('signup') }}">
+          <i class="fa fa-user-plus" aria-hidden="true"></i>
+          Sign Up
+        </a>
+      </button>
+    </div>
+    <div class="col-md-5"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
+      <button type="button" name="button">
+        <a href="{{ url_for('login') }}">
+          <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
+          Log In
+        </a>
+      </button>
+    </div>
+    <div class="col-md-5"></div>
+  </div>
+
+
+{% endblock %}

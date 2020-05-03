@@ -1,46 +1,47 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <div class="col-md-8 main-section">
-    <div class="row mobile">
-      <div class="col">
-        <h3 class="section-header">Public Lists</h3>
-      </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="section-header">Public Lists</h3>
     </div>
-    <div class="row">
+  </div>
+  <div class="row">
+    {% if ilist %}
       <div class="col-md-6">
         <h4 class="section-header">Top 5 Lists</h4>
-        <ol>
-          <li>Tim's Harry Potter</li>
-          <li>Fred's Matrix</li>
-          <li>John's Scrubs</li>
-          <li>Sean's Injustice - Gods Among Us</li>
-          <li>Jane's Game of Thrones</li>
-        </ol>
+        <div class="list-group">
+          {% for list in lists %}
+            <a href="{{ url_for('home', list_id=list._id) }}" class="list-group-item list-group-item-action">
+              {{ list.list_name }} - {{ list.created }}
+            </a>
+          {% endfor %}
+        </div>
       </div>
-      <div class="col-md-6 mobile">
-        <h4 class="section-header">List # Items</h4>
-        <ul>
-          <li>Harry Potter and the Philosophers Stone</li>
-          <li>Harry Potter and the Chamber of Secrets</li>
-          <li>Harry Potter and the Prisoner of Azkaban</li>
-          <li>Harry Potter and the Goblet of Fire</li>
-          <li>Harry Potter and the Order of the Phenoix</li>
-          <li>Harry Potter and the Half-Blood Prince</li>
-          <li>Harry Potter and the Deathly Hallows</li>
-        </ul>
+      <div class="col-md-6">
+        {% for item in ilist %}
+          <h4 class="section-header">{{ item.list_name }}</h4>
+          <div class="list-group">
+            {% for j in item.titles%}
+              <a class="list-group-item">
+                {{ j }}
+              </a>
+            {% endfor %}
+          </div>
+        {% endfor %}
       </div>
-    </div>
-    <div class="row">
-
-    </div>
-    <!-- <div class="row">
-      <div class="col">
-        <h3 class="section-header">Sign Up/In</h3>
-        <button type="button" name="button">Sign Up</button>
-        <button type="button" name="button">Sign In</button>
+    {% else %}
+      <div class="col-md-12">
+        <h4 class="section-header">Top 5 Lists</h4>
+        <div class="list-group">
+          {% for list in lists %}
+            <a href="{{ url_for('home', list_id=list._id) }}" class="list-group-item list-group-item-action">
+              {{ list.list_name }} - {{ list.created }}
+            </a>
+          {% endfor %}
+        </div>
       </div>
-    </div> -->
+    {% endif %}
   </div>
 
 {% endblock %}

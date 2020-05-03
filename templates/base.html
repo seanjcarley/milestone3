@@ -4,7 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/d5901c0a36.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./static/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -14,37 +17,39 @@
   <body>
 <!-- **************************** Header *********************************** -->
     <header class="container-fluid">
-      <div class="row no-gutters mobile">
-        <div class="col-md-12">
-          <div class="opaque-overlay">&nbsp;</div>
-          <h1 class="name uppercase">Bucket Lists</h1>
-          <h2 class="tag-line lowercase">Create your Ultimate Watch-List</h2>
-        </div>
-      </div>
-      <div class="row no-gutters mobile">
-        <div class="col">
-          <ul id="nav" class="list-inline menucontainer">
-            <li class="col-md-4 list-inline-item menuitem">
-              <a href="#">
-                <i class="fa fa-home" aria-hidden="true"></i>
-                <span>Home</span>
+      <!--
+      The below code for the Navbar is taken from W3Schools at the following link:
+      https://www.w3schools.com/bootstrap4/bootstrap_navbar.asp
+      -->
+      <nav class="navbar navbar-expand-md nav-bg nav-col">
+      <!-- Brand -->
+        <a class="navbar-brand nav-col" href="{{ url_for('home') }}">Bucket Lists</a>
+      <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <!-- added ml-auto to right align the menu on desktop -->
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('home') }}">
+                <i class="fa fa-home" aria-hidden="true"></i> Home
               </a>
             </li>
-            <li class="col-md-4 list-inline-item menuitem">
-              <a href="#">
-                <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
-                <span>Sign Up/In</span>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('signupin') }}">
+                <i class="fa fa-sign-in-alt" aria-hidden="true"></i> Sign Up/In
               </a>
             </li>
-            <li class="col-md-4 list-inline-item menuitem">
-              <a href="#">
-                <i class="fa fa-list" aria-hidden="true"></i>
-                <span>Public Lists</span>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('home') }}">
+                <i class="fa fa-list" aria-hidden="true"></i> Public Lists
               </a>
             </li>
           </ul>
         </div>
-      </div>
+      </nav>
     </header>
 <!-- **************************** /Header ********************************** -->
 
@@ -56,15 +61,16 @@
             <div class="col">
               <h3 class="section-header">What's it all about?</h3>
               <p>
-                This site allows you to create a reading list of books or comics you
-                would like to read, TV shows or movies you'd like to watch, or games
-                you'd like to play. For inspiration, see the public lists below with
-                suggestions from other users. Sign up to save your own lists.
+                This site allows you to create a reading list of books or comics
+                you would like to read, TV shows or movies you'd like to watch,
+                or games you'd like to play. For inspiration, see the public
+                lists below with suggestions from other users. Sign up to save
+                your own lists.
               </p>
               <p class="mobile">
-                You can even check off completed items to keep tack of your progress.
-                Lists can be edited to add or remove items, and they can be kept
-                private or shared with other users. You decide.
+                You can even check off completed items to keep tack of your
+                progress. Lists can be edited to add or remove items, and they
+                can be kept private or shared with other users. You decide.
                 <br/>
                 <br/>
                 Look around, and then <a href="#">sign up</a> or
@@ -73,8 +79,11 @@
             </div>
           </div>
         </div>
-        {% block content %}
-        {% endblock %}
+        <div class="col-md-8 main-section">
+          {% block content %}
+
+          {% endblock %}
+        </div>
       </div>
     </section>
 <!-- **************************** /Section ********************************* -->
@@ -82,19 +91,52 @@
 <!-- ***************************** Footer ********************************** -->
     <footer class="footer">
       <div class="row">
-        <div class="col-md-3">
-          <h5 class="footer-header">Got a Suggestion?</h5>
-          <p>Click Here to get in contact.</p>
-        </div>
         <div class="col-md-6">
-          <h5 class="footer-header">Follow me on Social Media</h5>
+          <h5 class="footer-header">Follow us on Social Media</h5>
+          <ul class="list-inline social-icons">
+            <li class="list-inline-item socialitem">
+              <a target="_blank" href="#">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+                <span class="sr-only">Facebook</span> <!-- This will be read by a screen reader. It does not show on the page -->
+              </a>
+            </li>
+            <li class="list-inline-item socialitem">
+              <a target="_blank" href="#">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+                <span class="sr-only">Twitter</span> <!-- This will be read by a screen reader. It does not show on the page -->
+              </a>
+            </li>
+            <li class="list-inline-item socialitem">
+              <a target="_blank" href="#">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+                <span class="sr-only">Pinterest</span> <!-- This will be read by a screen reader. It does not show on the page -->
+              </a>
+            </li>
+            <li class="list-inline-item socialitem">
+              <a target="_blank" href="#">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+                <span class="sr-only">Instagram</span> <!-- This will be read by a screen reader. It does not show on the page -->
+              </a>
+            </li>
+            <li class="list-inline-item socialitem">
+              <a target="_blank" href="#">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+                <span class="sr-only">YouTube</span> <!-- This will be read by a screen reader. It does not show on the page -->
+              </a>
+            </li>
+          </ul>
         </div>
-        <div class="col-md-3 copyright">
+        <div class="col-md-6 copyright">
           &COPY; Sean Carley - May 2020
           <br/> Code Institute Milestone Project-3
         </div>
       </div>
     </footer>
 <!-- ***************************** /Footer ********************************* -->
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+      });
+    </script>
   </body>
 </html>

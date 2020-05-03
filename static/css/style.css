@@ -6,6 +6,7 @@ body {
     margin: 0;
     font-family: "Exo", sans-serif;
     min-height: 100vh;
+    background-color: grey;
 }
 
 .container-fluid {
@@ -63,24 +64,34 @@ header {
     font-size: 1rem;
 }
 
-.opaque-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+.nav-bg{
+  background-color: #848482;
+  color: #CCDAD1;
+}
+
+.nav-bg a {
+  color: #CCDAD1;
+}
+
+.nav-col {
+  color: #CCDAD1;
 }
 
 /* --------------------------------- Section -------------------------------- */
+section {
+  display: block;
+}
+
 .side-section {
-  color: green;
-  background-color: yellow;
+  color: 14110F;
+  background-color: #CCDAD1;
+  min-height: 90vh;
 }
 
 .main-section {
-  color: yellow;
-  background-color: green;
+  color: #38302E;
+  background-color: #6F6866;
+  min-height: 90vh;
 }
 
 .section-header {
@@ -89,9 +100,15 @@ header {
 
 /* --------------------------------- Footer --------------------------------- */
 footer {
-  color: red;
-  background-color: blue;
+  color: #848482;
+  background-color: #14110F;
   text-align: center;
+  margin: 0;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
 }
 
 /* ----------------------------- Media Queries ------------------------------ */

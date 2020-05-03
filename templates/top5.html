@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block titles %}
+
+  <div class="col-md-6 mobile">
+    <h4 class="section-header">List # Items</h4>
+    <ul>
+      {% for list in lists %}
+      <li class="list-group-item list-group-item-action">
+        <strong>{{ list.list_name }}</strong> - Created {{ list.created }}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="row">
+  </div>
+
+{% endblock %}
