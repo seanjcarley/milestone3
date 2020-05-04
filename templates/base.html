@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/d5901c0a36.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Bucket List</title>
   </head>
@@ -21,9 +21,9 @@
       The below code for the Navbar is taken from W3Schools at the following link:
       https://www.w3schools.com/bootstrap4/bootstrap_navbar.asp
       -->
-      <nav class="navbar navbar-expand-md nav-bg nav-col">
+      <nav class="navbar navbar-expand-md bg-dark navbar-dark">
       <!-- Brand -->
-        <a class="navbar-brand nav-col" href="{{ url_for('home') }}">Bucket Lists</a>
+        <a class="navbar-brand" href="{{ url_for('home') }}">Bucket Lists</a>
       <!-- Toggler/collapsibe Button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
           <span class="navbar-toggler-icon"></span>
@@ -38,13 +38,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('signupin') }}">
-                <i class="fa fa-sign-in-alt" aria-hidden="true"></i> Sign Up/In
+              <a class="nav-link" href="{{ url_for('create') }}">
+                <i class="fa fa-sign-in-alt" aria-hidden="true"></i> Create list
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('home') }}">
-                <i class="fa fa-list" aria-hidden="true"></i> Public Lists
+                <i class="fa fa-list" aria-hidden="true"></i> Top 10
               </a>
             </li>
           </ul>

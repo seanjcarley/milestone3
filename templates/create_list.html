@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="section-header">Create List</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form class="" action="{{ url_for('insert_list') }}" method="POST">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">List Title</span>
+          </div>
+          <input id="list_name" name="list_name" type="text" class="form-control" placeholder="List Name">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Created By</span>
+          </div>
+          <input id="list_author" name="list_author" type="text" class="form-control" placeholder="Your Name">
+        </div>
+        <div class="dropdown">
+          <select id="categories" name="categories" class="custom-select">
+            <option selected>Select List Category</option>
+            {% for cat in clist %}
+            <option id="{{ cat.cat_name }}" name="{{ cat.cat_name }}">{{ cat.cat_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">
+          Add Items <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

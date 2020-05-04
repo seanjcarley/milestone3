@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="row">
-    {% if ilist %}
+    {% if ilist %} <!-- This is used to load selecte list items -->
       <div class="col-md-6">
         <h4 class="section-header">Top 5 Lists</h4>
         <div class="list-group">
@@ -19,29 +19,38 @@
         </div>
       </div>
       <div class="col-md-6">
-        {% for item in ilist %}
-          <h4 class="section-header">{{ item.list_name }}</h4>
-          <div class="list-group">
-            {% for j in item.titles%}
-              <a class="list-group-item">
-                {{ j }}
-              </a>
-            {% endfor %}
+        <h4 class="section-header">{{ ilist.list_name }}</h4>
+        <div class="list-group">
+          {% for item in ilist.titles%}
+            <a class="list-group-item">
+              {{ item }}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+      {% else %} <!-- This is used for the initial load of the webpage -->
+        <div class="col-md-12">
+          <h4 class="section-header">All Lists</h4>
+        <div class="list-group">
+          {% for list in lists %}
+            <a href="{{ url_for('home', list_id=list._id) }}" class="list-group-item list-group-item-action">
+              {{ list.list_name }} - {{ list.created }}
+            </a>
+          {% endfor %}
           </div>
-        {% endfor %}
-      </div>
-    {% else %}
-      <div class="col-md-12">
-        <h4 class="section-header">Top 5 Lists</h4>
-        <div class="list-group">
-          {% for list in lists %}
-            <a href="{{ url_for('home', list_id=list._id) }}" class="list-group-item list-group-item-action">
-              {{ list.list_name }} - {{ list.created }}
-            </a>
-          {% endfor %}
         </div>
+      {% endif %}
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="section-header">Create a List</h4>
+        <button type="button" name="button">
+          <a href="{{ url_for('create') }}">
+            <i class="fa fa-list" aria-hidden="true"></i>
+            Create
+          </a>
+        </button>
       </div>
-    {% endif %}
-  </div>
+    </div>
 
 {% endblock %}
