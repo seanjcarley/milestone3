@@ -3,12 +3,14 @@
 
   <div class="row">
     <div class="col-md-12">
-      {% for item in the_clist %}
-        {{ item }}
-        {% for cat in the_cat %}
-        {% if item.categories==the_cat.cat_name %}
-          {{ the_cat.fields }}
-        {% endif %}
+      {% for i in the_list %}
+        <h3> {{ i }} </h3>
+      {% endfor %}
+      {% for j in the_cat %}
+        <h3> {{ j }} </h3>
+      {% endfor %}
+      {% for k in id %}
+        <h3> {{ k }} </h3>
       {% endfor %}
     </div>
   </div>

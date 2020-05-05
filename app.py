@@ -40,16 +40,37 @@ def insert_list():
         "categories": request.form.get("categories"),
         "created": now
     })
-    clist = lists.find({"created":now})
-    list = lists.find({"created":now})
-    category = categories.find()
+
+    def set_list(created):
+        list1 = lists.find({"created":created})
+        for_list = []
+        for_item = []
+        for_id = []
+        for i in list1:
+            for k, v in i.items():
+                if k != "categories":
+                    for_list.append(v)
+                elif k == "_id":
+                    for_id.append(v)
+                else:
+                    for_list.append(v)
+                    category = categories.find({"cat_name": v})
+                    for j in category:
+                        for l, w in j.items():
+                            if l == "fields":
+                                for a in w:
+                                    for_item.append(a)
+        return(for_list, for_item, for_id)
+
+    the_list = set_list(now)
+
     return render_template("add_items.html",
-        the_list=list,
-        the_clist=clist,
-        the_cat=category)
+        the_list=the_list[0],
+        the_cat=the_list[1],
+        id=the_list[2])
 
 
-@app.route('/add_items')
+@app.route('/add_items', methods=['POST'])
 def add_items():
     return redirect(url_for("home"))
 
