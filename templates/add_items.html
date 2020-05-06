@@ -3,15 +3,28 @@
 
   <div class="row">
     <div class="col-md-12">
-      {% for i in the_list %}
-        <h3> {{ i }} </h3>
+      {% for k, v in the_list.items() %}
+        {% if k == "list_name" %}
+            <h3>List</h3>
+            <p>{{ v }}</p>
+        {% elif k == "list_author" %}
+            <h3>Created by:</h3>
+            <p>{{ v }}</p>
+        {% elif k == "categories" %}
+            <h3>Category:</h3>
+            <p>{{ v }}</p>
+        {% elif k == "created" %}
+            <h3>Last Updated on:</h3>
+            <p>{{ v }}</p>
+        {% endif %}
       {% endfor %}
-      {% for j in the_cat %}
-        <h3> {{ j }} </h3>
-      {% endfor %}
-      {% for k in id %}
-        <h3> {{ k }} </h3>
-      {% endfor %}
+      {% for k, v in the_cat.items() %}
+        {% if k == "fields" %}
+            {% for i in v %}
+                <h3>{{ v[i] }}</h3>
+            {% endfor %}
+        {% endif %}
+      {% endfor%}
     </div>
   </div>
 

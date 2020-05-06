@@ -43,31 +43,34 @@ def insert_list():
 
     def set_list(created):
         list1 = lists.find({"created":created})
-        for_list = []
-        for_item = []
-        for_id = []
+        list_dict = {}
+        cat_dict = {}
+        category = ""
         for i in list1:
             for k, v in i.items():
-                if k != "categories":
-                    for_list.append(v)
-                elif k == "_id":
-                    for_id.append(v)
+                if k == "categories":
+                    list_dict[k] = v
+                    category = v
+                    print(category)
                 else:
-                    for_list.append(v)
-                    category = categories.find({"cat_name": v})
-                    for j in category:
-                        for l, w in j.items():
-                            if l == "fields":
-                                for a in w:
-                                    for_item.append(a)
-        return(for_list, for_item, for_id)
+                    list_dict[k] = v
+                    print(category)
+
+        cat = categories.find({"cat_name": category}, {"fields"})
+
+        for j in cat:
+            for k, v in j.items():
+                if k == "fields":
+                    cat_dict[k] = v
+
+        return(list_dict, cat_dict)
 
     the_list = set_list(now)
-
+    print(the_list)
     return render_template("add_items.html",
         the_list=the_list[0],
-        the_cat=the_list[1],
-        id=the_list[2])
+        the_cat=the_list[1]
+        )
 
 
 @app.route('/add_items', methods=['POST'])
