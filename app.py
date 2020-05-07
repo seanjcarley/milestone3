@@ -109,14 +109,13 @@ def add_items(obj):
                     cat_dict[k] = v
 
         itm = items.find({"list_id": list_id})
+        
         for m in itm:
-            for k, v in m:
-                if k == "items":
-                    for l, w in v:
-                        itm_dict[l] = w
+            if k == "items":
+                for l, w in v:
+                    itm_dict[l] = w
 
         return(list_dict, cat_dict, obj, itm_dict)
-
 
     the_list = set_list(now)
 
