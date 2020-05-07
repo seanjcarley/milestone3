@@ -85,12 +85,13 @@ def add_items(obj):
     lists = mongo.db.lists
     categories = mongo.db.categories
 
-    items.insert({"list_id": list_id, "items": data, "created": now})
+    items.insert_one({"list_id": list_id, "items": data, "created": now})
 
     list1 = lists.find({"_id":list_id})
     list_dict = {}
     cat_dict = {}
-    itm_dict = {}
+    itm_list = []
+
     def set_list(created):
         for i in list1:
             for k, v in i.items():
@@ -111,11 +112,13 @@ def add_items(obj):
         itm = items.find({"list_id": list_id})
         
         for m in itm:
-            if k == "items":
-                for l, w in v:
-                    itm_dict[l] = w
+            print(m)
+            for n, o in m.items():
+                if n == "items":
+                    itm_list.append(o)
+                    print(itm_list)
 
-        return(list_dict, cat_dict, obj, itm_dict)
+        return(list_dict, cat_dict, obj, itm_list)
 
     the_list = set_list(now)
 

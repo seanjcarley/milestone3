@@ -28,8 +28,23 @@
             </a>
           {% endif %}
         {% endfor %}
-        {{ the_itm }}
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+        <h4 class="section-header">List Items</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+        {% for i in the_itm %}
+            </br>
+            {% for k, v in i.items() %}
+                {{ k }}: {{ v }}
+            {% endfor %}
+            </br>
+        {% endfor %}
     </div>
   </div>
   <div class="row">
