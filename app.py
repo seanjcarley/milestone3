@@ -18,9 +18,19 @@ mongo = PyMongo(app)
 @app.route('/home')
 @app.route('/home/<list_id>')
 def home(list_id = ObjectId("000000000000000000000000")):
-    init_list = mongo.db.lists.find_one({"_id": ObjectId(list_id)})
-    return render_template("landing.html", lists=mongo.db.lists.find(),
-        ilist=init_list)
+    if list_id != ObjectId("000000000000000000000000"):
+        itm_list = []
+        init_list = mongo.db.lists.find_one({"_id": ObjectId(list_id)})
+        itms = mongo.db.items.find({"list_id":ObjectId(list_id)})
+        for m in itms:
+            for n, o in m.items():
+                if n == "items":
+                    itm_list.append(o)
+        return render_template("landing.html", lists=mongo.db.lists.find(),
+            ilist=itm_list)
+    else:
+        init_list = mongo.db.lists.find_one({"_id": ObjectId(list_id)})
+        return render_template("landing.html", lists=mongo.db.lists.find())
 
 
 @app.route('/create')
@@ -110,15 +120,17 @@ def add_items(obj):
                     cat_dict[k] = v
 
         itm = items.find({"list_id": list_id})
-        
+
         for m in itm:
             print(m)
             for n, o in m.items():
+                if n == "_id":
+                    item_id = o
                 if n == "items":
-                    itm_list.append(o)
+                    itm_list.append(ObjectId(o))
                     print(itm_list)
 
-        return(list_dict, cat_dict, obj, itm_list)
+        return(list_dict, cat_dict, obj, itm_list, item_id)
 
     the_list = set_list(now)
 
@@ -126,13 +138,20 @@ def add_items(obj):
         the_list=the_list[0],
         the_cat=the_list[1],
         obid = the_list[2],
-        the_itm = the_list[3]
+        the_itm = the_list[3],
+        itm_id = the_list[4]
         )
 
 
 @app.route('/finish_items')
 def finish_items():
     return redirect(url_for('home'))
+
+@app.route('/delete_item/<item_id>')
+def delete_item(item_id):
+    list_id = mongo.db.items.find_one({"list_id":ObjectId(item_id)})
+    mongo.db.categories.remove({'_id': ObjectId(item_id)})
+    return redirect(url_for('home', list_id))
 
 
 if __name__ == '__main__':

@@ -9,7 +9,7 @@
   <div class="row">
     {% if ilist %} <!-- This is used to load selecte list items -->
       <div class="col-md-6">
-        <h4 class="section-header">Top 5 Lists</h4>
+        <h4 class="section-header">Lists</h4>
         <div class="list-group">
           {% for list in lists %}
             <a href="{{ url_for('home', list_id=list._id) }}" class="list-group-item list-group-item-action">
@@ -19,12 +19,39 @@
         </div>
       </div>
       <div class="col-md-6">
-        <h4 class="section-header">{{ ilist.list_name }}</h4>
+        <h4 class="section-header">List Items</h4>
         <div class="list-group">
-          {% for item in ilist.titles%}
-            <a class="list-group-item">
-              {{ item }}
-            </a>
+          {% for i in ilist %}
+          <div class="row">
+            <div class="col-sm-5">
+              {% for k, v in i.items() %}
+                {% if k == "title" %}
+                  {{ k }}: {{ v }}<br/>
+                {% elif k == "released" %}
+                  {{ k }}: {{ v }}
+                {%endif%}
+              {% endfor %}
+            </div>
+            <div class="col-sm-2">
+              Done
+              <input id="completed" name="copleted" type="checkbox">
+            </div>
+            <div class="col-sm-5">
+              <button class="btn" type="submit" name="action">
+                <a href=""
+                  class="waves-effect waves-light btn btn_small">
+                  Edit
+                </a>
+                <i class="fa fa-edit" aria-hidden="true"></i>
+              </button>
+              <button class="btn" type="submit" name="action">
+                <a href="{{ url_for('delete_item'), itm_id }}"
+                  class="waves-effect waves-light btn btn_small">
+                  Delete <i class="far fa-trash-alt" aria-hidden="true"></i>
+                </a>
+              </button>
+            </div>
+          </div>
           {% endfor %}
         </div>
       </div>

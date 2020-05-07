@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700');
 
+/* Colours */
+/* 26392F - Kombu Green */
+/* EEE82C - Titanium Yellow */
+/* 91CB3E - Yellow Green */
+/* FFFDED - Ivory */
+/* A4036F - Flirt */
+
 /* ---------------------------------- body ---------------------------------- */
 body {
     padding: 0;
@@ -25,20 +32,32 @@ header {
   text-align: center;
 }
 
+.bg-dark {
+    background-color: #26392F !important;
+    color: #EEE82C !important;
+}
+
+.navbar-brand,
+.nav-link {
+    color: #EEE82C !important;
+}
+
+.navbar-dark
+
 /* --------------------------------- Section -------------------------------- */
 section {
   display: block;
 }
 
 .side-section {
-  color: #26392F;
-  background-color: #fff;
+  color: #FFFDED;
+  background-color: #91CB3E;
   min-height: 90vh;
 }
 
 .main-section {
-  color: #9db5b2;
-  background-color: #daf0ee;
+  color: #26392F;
+  background-color: #FFFDED;
   min-height: 90vh;
 }
 
