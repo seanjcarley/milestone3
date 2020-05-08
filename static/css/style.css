@@ -8,11 +8,13 @@
 /* A4036F - Flirt */
 
 /* ---------------------------------- body ---------------------------------- */
-body {
+html, body {
     padding: 0;
     margin: 0;
     font-family: "Exo", sans-serif;
-    min-height: 100vh;
+    /* min-height: 100vh; */
+    height: 100%;
+    width: 100%;
     background-color: grey;
 }
 
@@ -47,18 +49,22 @@ header {
 /* --------------------------------- Section -------------------------------- */
 section {
   display: block;
+  height: 100%;
+  width: 100%
+
+  background-color: #abcdef;
 }
 
 .side-section {
   color: #FFFDED;
   background-color: #91CB3E;
-  min-height: 90vh;
+  height: 90vh;
 }
 
 .main-section {
   color: #26392F;
   background-color: #FFFDED;
-  min-height: 90vh;
+  /* min-height: 90vh; */
 }
 
 .section-header {

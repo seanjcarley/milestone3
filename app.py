@@ -31,9 +31,9 @@ def home(list_id = ObjectId("000000000000000000000000")):
                     for l, w in v.items():
                         itm_list[l] = w
             dict_list.append(itm_list)
-        
+
         print(dict_list)
-        
+
         return render_template("landing.html", lists=mongo.db.lists.find(),
             ilist=dict_list)
     else:
@@ -93,7 +93,7 @@ def insert_list():
 
 @app.route('/add_items/<obj>', methods=['POST', 'GET'])
 def add_items(obj):
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S") #set timestamp
     list_id = ObjectId(obj)
 
     imd_data = request.form
@@ -135,7 +135,7 @@ def add_items(obj):
                 if n == "_id":
                     item_id = o
                 if n == "items":
-                    itm_list.append(ObjectId(o))
+                    itm_list.append(o)
                     print(itm_list)
 
         return(list_dict, cat_dict, obj, itm_list, item_id)
@@ -157,9 +157,16 @@ def finish_items():
 
 @app.route('/delete_item/<item_id>')
 def delete_item(item_id):
-    list_id = mongo.db.items.find_one({"list_id":ObjectId(item_id)})
-    mongo.db.categories.remove({'_id': ObjectId(item_id)})
-    return redirect(url_for('home', list_id=list_id))
+    list_id = mongo.db.items.find_one({"_id":ObjectId(item_id)}, {"list_id"})
+    rtrn_id = list_id["list_id"]
+    mongo.db.items.remove({'_id': ObjectId(item_id)})
+    return redirect(url_for('home', list_id=rtrn_id))
+
+@app.route('/delete_list/<list_id>')
+def delete_list(list_id):
+    mongo.db.items.remove({'list_id': ObjectId(list_id)})
+    mongo.db.lists.remove({'_id': ObjectId(list_id)})
+    return redirect(url_for('home'))
 
 
 if __name__ == '__main__':
