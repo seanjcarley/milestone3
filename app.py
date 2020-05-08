@@ -19,15 +19,23 @@ mongo = PyMongo(app)
 @app.route('/home/<list_id>')
 def home(list_id = ObjectId("000000000000000000000000")):
     if list_id != ObjectId("000000000000000000000000"):
-        itm_list = []
+        dict_list = []
         init_list = mongo.db.lists.find_one({"_id": ObjectId(list_id)})
         itms = mongo.db.items.find({"list_id":ObjectId(list_id)})
         for m in itms:
-            for n, o in m.items():
-                if n == "items":
-                    itm_list.append(o)
+            itm_list = {}
+            for k, v in m.items():
+                if k == "_id":
+                    itm_list[k] = v
+                elif k == "items":
+                    for l, w in v.items():
+                        itm_list[l] = w
+            dict_list.append(itm_list)
+        
+        print(dict_list)
+        
         return render_template("landing.html", lists=mongo.db.lists.find(),
-            ilist=itm_list)
+            ilist=dict_list)
     else:
         init_list = mongo.db.lists.find_one({"_id": ObjectId(list_id)})
         return render_template("landing.html", lists=mongo.db.lists.find())
@@ -151,7 +159,7 @@ def finish_items():
 def delete_item(item_id):
     list_id = mongo.db.items.find_one({"list_id":ObjectId(item_id)})
     mongo.db.categories.remove({'_id': ObjectId(item_id)})
-    return redirect(url_for('home', list_id))
+    return redirect(url_for('home', list_id=list_id))
 
 
 if __name__ == '__main__':
