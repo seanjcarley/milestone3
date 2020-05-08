@@ -14,14 +14,15 @@ app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
 
 mongo = PyMongo(app)
 
+
 @app.route('/')
 @app.route('/home')
 @app.route('/home/<list_id>')
-def home(list_id = ObjectId("000000000000000000000000")):
+def home(list_id=ObjectId("000000000000000000000000")):
     if list_id != ObjectId("000000000000000000000000"):
         dict_list = []
         init_list = mongo.db.lists.find_one({"_id": ObjectId(list_id)})
-        itms = mongo.db.items.find({"list_id":ObjectId(list_id)})
+        itms = mongo.db.items.find({"list_id": ObjectId(list_id)})
         for m in itms:
             itm_list = {}
             for k, v in m.items():
@@ -35,7 +36,7 @@ def home(list_id = ObjectId("000000000000000000000000")):
         print(dict_list)
 
         return render_template("landing.html", lists=mongo.db.lists.find(),
-            ilist=dict_list)
+                               ilist=dict_list)
     else:
         init_list = mongo.db.lists.find_one({"_id": ObjectId(list_id)})
         return render_template("landing.html", lists=mongo.db.lists.find())
@@ -47,7 +48,7 @@ def create():
     return render_template("create_list.html", clist=cat_list.find())
 
 
-@app.route('/insert_list', methods=['POST','GET'])
+@app.route('/insert_list', methods=['POST', 'GET'])
 def insert_list():
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     lists = mongo.db.lists
@@ -60,7 +61,7 @@ def insert_list():
     })
 
     def set_list(created):
-        list1 = lists.find({"created":created})
+        list1 = lists.find({"created": created})
         list_dict = {}
         cat_dict = {}
         for i in list1:
@@ -85,15 +86,15 @@ def insert_list():
     the_list = set_list(now)
 
     return render_template("add_items.html",
-        the_list=the_list[0],
-        the_cat=the_list[1],
-        obid = the_list[2]
-        )
+                           the_list=the_list[0],
+                           the_cat=the_list[1],
+                           obid=the_list[2]
+                           )
 
 
 @app.route('/add_items/<obj>', methods=['POST', 'GET'])
 def add_items(obj):
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S") #set timestamp
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # set timestamp
     list_id = ObjectId(obj)
 
     imd_data = request.form
@@ -105,7 +106,7 @@ def add_items(obj):
 
     items.insert_one({"list_id": list_id, "items": data, "created": now})
 
-    list1 = lists.find({"_id":list_id})
+    list1 = lists.find({"_id": list_id})
     list_dict = {}
     cat_dict = {}
     itm_list = []
@@ -143,29 +144,37 @@ def add_items(obj):
     the_list = set_list(now)
 
     return render_template("add_aitems.html",
-        the_list=the_list[0],
-        the_cat=the_list[1],
-        obid = the_list[2],
-        the_itm = the_list[3],
-        itm_id = the_list[4]
-        )
+                           the_list=the_list[0],
+                           the_cat=the_list[1],
+                           obid=the_list[2],
+                           the_itm=the_list[3],
+                           itm_id=the_list[4]
+                           )
 
 
 @app.route('/finish_items')
 def finish_items():
     return redirect(url_for('home'))
 
+
 @app.route('/delete_item/<item_id>')
 def delete_item(item_id):
-    list_id = mongo.db.items.find_one({"_id":ObjectId(item_id)}, {"list_id"})
+    list_id = mongo.db.items.find_one({"_id": ObjectId(item_id)}, {"list_id"})
     rtrn_id = list_id["list_id"]
     mongo.db.items.remove({'_id': ObjectId(item_id)})
     return redirect(url_for('home', list_id=rtrn_id))
+
 
 @app.route('/delete_list/<list_id>')
 def delete_list(list_id):
     mongo.db.items.remove({'list_id': ObjectId(list_id)})
     mongo.db.lists.remove({'_id': ObjectId(list_id)})
+    return redirect(url_for('home'))
+
+
+@app.route('/edit_list/')
+def edit_list():
+    
     return redirect(url_for('home'))
 
 

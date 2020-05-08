@@ -12,10 +12,8 @@ html, body {
     padding: 0;
     margin: 0;
     font-family: "Exo", sans-serif;
-    /* min-height: 100vh; */
     height: 100%;
     width: 100%;
-    background-color: grey;
 }
 
 .container-fluid {
@@ -34,38 +32,30 @@ header {
   text-align: center;
 }
 
-.bg-dark {
-    background-color: #26392F !important;
-    color: #EEE82C !important;
-}
+/* .bg-dark {
 
-.navbar-brand,
+} */
+
+/* .navbar-brand,
 .nav-link {
-    color: #EEE82C !important;
-}
+
+} */
 
 .navbar-dark
 
 /* --------------------------------- Section -------------------------------- */
 section {
   display: block;
-  height: 100%;
-  width: 100%
-
-  background-color: #abcdef;
-}
-
-.side-section {
-  color: #FFFDED;
-  background-color: #91CB3E;
   height: 90vh;
 }
 
-.main-section {
-  color: #26392F;
-  background-color: #FFFDED;
-  /* min-height: 90vh; */
-}
+/* .side-section {
+
+} */
+
+/* .main-section {
+
+} */
 
 .section-header {
   text-align: center;
@@ -73,8 +63,6 @@ section {
 
 /* --------------------------------- Footer --------------------------------- */
 footer {
-  color: #848482;
-  background-color: #14110F;
   text-align: center;
   margin: 0;
   overflow: hidden;

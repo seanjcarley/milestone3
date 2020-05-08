@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <h4 class="section-header">Your List</h4>
+    <h4 class="section-header">Edit your List</h4>
   </div>
 </div>
 <div class="row">
@@ -33,27 +33,6 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <h4 class="section-header">List Items</h4>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    {% for i in the_itm %}
-    </br>
-    {% for k, v in i.items() %}
-    {{ k }}: {{ v }}
-    {% endfor %}
-    </br>
-    {% endfor %}
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <h4 class="section-header">Add items to your list</h4>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
     <form class="" action="{{ url_for('add_items', obj=obid) }}" method="POST">
       {% for k, v in the_cat.items() %}
       {% if k == "fields" %}
@@ -68,8 +47,8 @@
       {% endif %}
       {% endfor%}
       <div>
-          <input id="completed" name="completed" type="checkbox">
-          Completed?
+        <input id="completed" name="completed" type="checkbox">
+        Completed?
       </div>
       <button class="btn waves-effect waves-light" type="submit">
         Add Item <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
@@ -81,6 +60,5 @@
       </button>
     </form>
   </div>
-</div>
 
-{% endblock %}
+  {% endblock %}

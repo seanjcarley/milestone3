@@ -17,7 +17,7 @@
         {{ list.list_name }} - {{ list.created }}
       </a>
       <button class="btn" type="submit" name="action">
-        <a href="" class="waves-effect waves-light btn btn_small">
+        <a href="{{ url_for('edit_list')}}" class="waves-effect waves-light btn btn_small">
           Edit <i class="fa fa-edit" aria-hidden="true"></i>
         </a>
       </button>
@@ -34,21 +34,23 @@
     <div class="list-group">
       {% for item in ilist %}
       <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-8">
           {% for k, v in item.items() %}
           {% if k == "title" %}
           {{ k }}: {{ v }}<br />
           {% elif k == "released" %}
           {{ k }}: {{ v }}
+          {% elif k == "completed" %}
+            {% if v == "on" %}
+            <input id="completed" name="completed" type="checkbox" checked disabled>
+            {% else %}
+            <input id="completed" name="completed" type="checkbox">
+            {% endif %}
           {% endif %}
           {% endfor %}
         </div>
-        <div class="col-sm-2">
-          Done
-          <input id="completed" name="copleted" type="checkbox">
-        </div>
-        <div class="col-sm-5">
-          {% for l, w in item.items() %}
+        <div class="col-sm-4">
+          <!-- {% for l, w in item.items() %}
           {% if l == "_id" %}
           <button class="btn" type="submit" name="action">
             <a href="" class="waves-effect waves-light btn btn_small">
@@ -56,12 +58,12 @@
             </a>
           </button>
           {% endif %}
-          {% endfor %}
+          {% endfor %} -->
           {% for m, x in item.items() %}
           {% if m == "_id" %}
           <button class="btn" type="submit" name="action">
             <a href="{{ url_for('delete_item', item_id=x ) }}" class="waves-effect waves-light btn btn_small">
-              Delete <i class="fa fa-edit" aria-hidden="true"></i>
+              Delete <i class="fas fa-trash-alt" aria-hidden="true"></i>
             </a>
           </button>
           {% endif %}
