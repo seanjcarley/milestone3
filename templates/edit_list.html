@@ -8,33 +8,72 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div class="list-group">
-      {% for k, v in the_list.items() %}
-      {% if k == "list_name" %}
-      <a class="list-group-item">
-        List Name: {{ v }}
-      </a>
-      {% elif k == "list_author" %}
-      <a class="list-group-item">
-        Created by: {{ v }}
-      </a>
-      {% elif k == "categories" %}
-      <a class="list-group-item">
-        Category: {{ v }}
-      </a>
-      {% elif k == "created" %}
-      <a class="list-group-item">
-        Last Updated on: {{ v }}
-      </a>
-      {% endif %}
-      {% endfor %}
-    </div>
+    <form id="list_form" class="col" action="{{ url_for('update_list', list_id=obid) }}" method="post">
+      <div class="list-group">
+        {% for k, v in the_list.items() %}
+        {% if k == "list_name" %}
+        <a class="list-group-item">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">List Name</span>
+            </div>
+            <input id="list_name" name="list_name" type="text" class="form-control" value="{{ v }}">
+          </div>
+        </a>
+        {% elif k == "list_author" %}
+        <a class="list-group-item">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Created by</span>
+            </div>
+            <input id="list_author" name="list_author" type="text" class="form-control" value="{{ v }}">
+          </div>
+        </a>
+        {% elif k == "categories" %}
+        <a class="list-group-item">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Category</span>
+            </div>
+            <input id="categories" name="categories" type="text" class="form-control" value="{{ v }}" disabled>
+          </div>
+        </a>
+        {% elif k == "created" %}
+        <a class="list-group-item">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Last Updated</span>
+            </div>
+            <input id="created" name="created" type="text" class="form-control" value="{{ v }}" disabled>
+          </div>
+        </a>
+        {% endif %}
+        {% endfor %}
+      </div>
+      <input type="submit" name="" value="Update List">
+    </form>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
     <form class="" action="{{ url_for('add_items', obj=obid) }}" method="POST">
-      {% for k, v in the_cat.items() %}
+      {% for i in the_itm %}
+      {% for k, v in i.items() %}
+      {% if k != 'completed' %}
+      {{ k }}: {{ v }}
+      {% else %}
+      {% if v == "on" %}
+      <input id="completed" name="completed" type="checkbox" checked>
+      {% else %}
+      <input id="completed" name="completed" type="checkbox">
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+
+
+
+      <!-- {% for k, v in the_cat.items() %}
       {% if k == "fields" %}
       {% for i in v %}
       <div class="input-group mb-3">
@@ -49,15 +88,15 @@
       <div>
         <input id="completed" name="completed" type="checkbox">
         Completed?
-      </div>
-      <button class="btn waves-effect waves-light" type="submit">
+      </div> -->
+      <!-- <button class="btn waves-effect waves-light" type="submit">
         Add Item <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
       </button>
       <button class="btn" type="submit" name="action">
         <a href="{{ url_for('finish_items') }}" class="waves-effect waves-light btn btn_small">
           Finish <i class="fa fa-edit" aria-hidden="true"></i>
         </a>
-      </button>
+      </button> -->
     </form>
   </div>
 

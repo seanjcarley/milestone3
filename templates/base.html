@@ -58,27 +58,9 @@
   <section class="section">
     <div class="row">
       <div class="col-md-4 side-section">
-        <div class="row">
-          <div class="col">
-            <h3 class="section-header">What's it all about?</h3>
-            <p>
-              This site allows you to create a reading list of books or comics
-              you would like to read, TV shows or movies you'd like to watch,
-              or games you'd like to play. For inspiration, see the public
-              lists below with suggestions from other users. Sign up to save
-              your own lists.
-            </p>
-            <p class="mobile">
-              You can even check off completed items to keep tack of your
-              progress. Lists can be edited to add or remove items, and they
-              can be kept private or shared with other users. You decide.
-              <br />
-              <br />
-              Look around, and then <a href="#">sign up</a> or
-              <a href="#">sign in</a> to get going.
-            </p>
-          </div>
-        </div>
+        {% block side_content %}
+        
+        {% endblock %}
       </div>
       <div class="col-md-8 main-section">
         {% block content %}
