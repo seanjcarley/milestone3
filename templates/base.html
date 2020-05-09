@@ -43,11 +43,6 @@
               <i class="fa fa-sign-in-alt" aria-hidden="true"></i> Create list
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('home') }}">
-              <i class="fa fa-list" aria-hidden="true"></i> Top 10
-            </a>
-          </li>
         </ul>
       </div>
     </nav>
@@ -57,16 +52,14 @@
   <!-- **************************** Section ********************************** -->
   <section class="section">
     <div class="row">
-      <div class="col-md-4 side-section">
+
         {% block side_content %}
-        
+
         {% endblock %}
-      </div>
-      <div class="col-md-8 main-section">
+
         {% block content %}
 
         {% endblock %}
-      </div>
     </div>
   </section>
   <!-- **************************** /Section ********************************* -->

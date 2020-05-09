@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
-{% block content %}
 
+{% block content %}
+<div class="col-md-12 main-section">
 <div class="row">
   <div class="col-md-12">
-    <h4 class="section-header">Edit your List</h4>
+    <h3 class="section-header">Edit your List</h3>
   </div>
 </div>
 <div class="row">
@@ -12,41 +13,49 @@
       <div class="list-group">
         {% for k, v in the_list.items() %}
         {% if k == "list_name" %}
-        <a class="list-group-item">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">List Name</span>
-            </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-4">
+            <h4>Title</h4>
+          </div>
+          <div class="col-md-6">
             <input id="list_name" name="list_name" type="text" class="form-control" value="{{ v }}">
           </div>
-        </a>
+          <div class="col-md-1"></div>
+        </div>
         {% elif k == "list_author" %}
-        <a class="list-group-item">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Created by</span>
-            </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-4">
+            <h4>Created by</h4>
+          </div>
+          <div class="col-md-6">
             <input id="list_author" name="list_author" type="text" class="form-control" value="{{ v }}">
           </div>
-        </a>
+          <div class="col-md-1"></div>
+        </div>
         {% elif k == "categories" %}
-        <a class="list-group-item">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Category</span>
-            </div>
-            <input id="categories" name="categories" type="text" class="form-control" value="{{ v }}" disabled>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-4">
+            <h4>Category</h4>
           </div>
-        </a>
+          <div class="col-md-6">
+            <input id="categories" name="categories" type="text" class="form-control uppercase" value="{{ v }}" disabled>
+          </div>
+          <div class="col-md-1"></div>
+        </div>
         {% elif k == "created" %}
-        <a class="list-group-item">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Last Updated</span>
-            </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-4">
+            <h4>Last Updated</h4>
+          </div>
+          <div class="col-md-6">
             <input id="created" name="created" type="text" class="form-control" value="{{ v }}" disabled>
           </div>
-        </a>
+          <div class="col-md-1"></div>
+        </div>
         {% endif %}
         {% endfor %}
       </div>
@@ -56,48 +65,42 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <form class="" action="{{ url_for('add_items', obj=obid) }}" method="POST">
-      {% for i in the_itm %}
-      {% for k, v in i.items() %}
-      {% if k != 'completed' %}
-      {{ k }}: {{ v }}
-      {% else %}
-      {% if v == "on" %}
-      <input id="completed" name="completed" type="checkbox" checked>
-      {% else %}
-      <input id="completed" name="completed" type="checkbox">
-      {% endif %}
-      {% endif %}
-      {% endfor %}
-      {% endfor %}
-
-
-
-      <!-- {% for k, v in the_cat.items() %}
-      {% if k == "fields" %}
-      {% for i in v %}
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text">{{ i }}</span>
-        </div>
-        <input id="{{ i }}" name="{{ i }}" type="text" class="form-control" placeholder="Enter {{ i }}">
+    <h3 class="section-header">Edit List Items</h3>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <tbody>
+            {% for i in the_itm %}
+            <tr>
+              {% for k, v in i.items() %}
+              {% if k != 'completed' %}
+              <td>
+                {{ k }}:
+                <input id="{{ k }}" name="{{ k }}" type="text" class="form-control" value="{{ v }}">
+              </td>
+              {% else %}
+              <td>
+                {% if v == "on" %}
+                <input id="completed" name="completed" type="checkbox" checked>
+                {% else %}
+                <input id="completed" name="completed" type="checkbox">
+                {% endif %}
+              </td>
+              <td>
+                <a href="" class="btn btn-info" role="button">
+                  Update
+                </a>
+              </td>
+              {% endif %}
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
-      {% endfor %}
-      {% endif %}
-      {% endfor%}
-      <div>
-        <input id="completed" name="completed" type="checkbox">
-        Completed?
-      </div> -->
-      <!-- <button class="btn waves-effect waves-light" type="submit">
-        Add Item <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
-      </button>
-      <button class="btn" type="submit" name="action">
-        <a href="{{ url_for('finish_items') }}" class="waves-effect waves-light btn btn_small">
-          Finish <i class="fa fa-edit" aria-hidden="true"></i>
-        </a>
-      </button> -->
-    </form>
+    </div>
   </div>
+</div>
+</div>
 
   {% endblock %}

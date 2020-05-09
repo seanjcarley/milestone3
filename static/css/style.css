@@ -25,6 +25,11 @@ html, body {
     margin: 0;
 }
 
+.bottom {
+  position: absolute;
+  bottom: 0;
+}
+
 /* --------------------------------- header --------------------------------- */
 header {
   color: blue;
@@ -32,16 +37,6 @@ header {
   text-align: center;
 }
 
-/* .bg-dark {
-
-} */
-
-/* .navbar-brand,
-.nav-link {
-
-} */
-
-.navbar-dark
 
 /* --------------------------------- Section -------------------------------- */
 section {
@@ -49,16 +44,16 @@ section {
   height: 90vh;
 }
 
-/* .side-section {
-
-} */
-
-/* .main-section {
-
-} */
-
 .section-header {
   text-align: center;
+}
+
+.side-section {
+
+}
+
+.main-section {
+  height: 80vh;
 }
 
 /* --------------------------------- Footer --------------------------------- */
@@ -85,9 +80,14 @@ footer {
 /* ----------------------------- Media Queries ------------------------------ */
 
 @media (max-width:767px) {
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
   footer {
     overflow: scroll;
-    position: sticky;
+    flex-shrink: 0;
   }
 
   header {

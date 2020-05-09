@@ -2,6 +2,7 @@
 
 {% block side_content %}
 
+<div class="col-md-3 side-section">
 <div class="row">
   <div class="col">
     {% if ilist %}
@@ -13,134 +14,150 @@
     <p>
       This site allows you to create a reading list of books or comics
       you would like to read, TV shows or movies you'd like to watch,
-      or games you'd like to play. For inspiration, see the public
-      lists below with suggestions from other users. Sign up to save
-      your own lists.
-    </p>
-    <p class="mobile">
-      You can even check off completed items to keep tack of your
-      progress. Lists can be edited to add or remove items, and they
-      can be kept private or shared with other users. You decide.
-      <br />
-      <br />
-      Look around, and then <a href="#">sign up</a> or
-      <a href="#">sign in</a> to get going.
+      or games you'd like to play. You can even check off completed items to
+      keep tack of your progress. Lists can be edited to add or remove items.
     </p>
     {% endif %}
   </div>
+</div>
 </div>
 
 {% endblock %}
 
 {% block content %}
-
+<div class="col-md-9 main-section">
 <div class="row">
   <div class="col-md-12">
-    <h3 class="section-header">Public Lists</h3>
+    <h3 class="section-header">All Lists</h3>
   </div>
 </div>
 <div class="row">
   {% if ilist %}
   <!-- This is used to load selected list items -->
   <div class="col-md-6">
-    <h4 class="section-header">Lists</h4>
-    <div class="list-group">
-      {% for list in lists %}
-      <a href="{{ url_for('home', list_id=list._id) }}" class="list-group-item list-group-item-action">
-        {{ list.list_name }} - {{ list.created }}
-      </a>
-      <button class="btn" type="submit" name="action">
-        <a href="{{ url_for('edit_list', list_id=list._id)}}" class="waves-effect waves-light btn btn_small">
-          Edit <i class="fa fa-edit" aria-hidden="true"></i>
-        </a>
-      </button>
-      <button class="btn" type="submit" name="action">
-        <a href="{{ url_for('delete_list', list_id=list._id ) }}" class="waves-effect waves-light btn btn_small">
-          Delete <i class="fas fa-trash-alt" aria-hidden="true"></i>
-        </a>
-      </button>
-      {% endfor %}
-    </div>
+    <h4>Lists</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>List Name</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for list in lists %}
+        <tr>
+          <td>
+            <a href="{{ url_for('home', list_id=list._id) }}">{{ list.list_name }}</a>
+          </td>
+          <td>{{ list.categories }}</td>
+          <td>
+            <div class="dropdown">
+              <button type="button" name="button" data-toggle="dropdown">
+                Action...
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ url_for('add_aitems', obj=list._id) }}">
+                  Add Item
+                </a>
+                <a class="dropdown-item" href="{{ url_for('edit_list', list_id=list._id)}}">
+                  Edit List
+                </a>
+                <a class="dropdown-item" href="{{ url_for('delete_list', list_id=list._id ) }}">
+                  Delete List
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
   <div class="col-md-6">
-    <h4 class="section-header">List Items</h4>
-    <div class="list-group">
-      {% for item in ilist %}
-      <div class="row">
-        <div class="col-sm-8">
+    <h4>Items</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Released</th>
+          <th>Done</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in ilist %}
+        <tr>
           {% for k, v in item.items() %}
           {% if k == "title" %}
-          {{ k }}: {{ v }}<br />
+          <td>
+            <a href="" class="">
+              {{ v }}
+            </a>
+          </td>
           {% elif k == "released" %}
-          {{ k }}: {{ v }}
+          <td>{{ v }}</td>
           {% elif k == "completed" %}
-            {% if v == "on" %}
-            <input id="completed" name="completed" type="checkbox" checked disabled>
-            {% else %}
-            <input id="completed" name="completed" type="checkbox">
-            {% endif %}
+          {% if v == "on" %}
+          <td><input id="completed" name="completed" type="checkbox" checked disabled></td>
+          {% else %}
+          <td><input id="completed" name="completed" type="checkbox"></td>
+          {% endif %}
           {% endif %}
           {% endfor %}
-        </div>
-        <div class="col-sm-4">
-          <!-- {% for l, w in item.items() %}
-          {% if l == "_id" %}
-          <button class="btn" type="submit" name="action">
-            <a href="" class="waves-effect waves-light btn btn_small">
-              Edit <i class="fa fa-edit" aria-hidden="true"></i>
-            </a>
-          </button>
-          {% endif %}
-          {% endfor %} -->
           {% for m, x in item.items() %}
           {% if m == "_id" %}
-          <button class="btn" type="submit" name="action">
-            <a href="{{ url_for('delete_item', item_id=x ) }}" class="waves-effect waves-light btn btn_small">
-              Delete <i class="fas fa-trash-alt" aria-hidden="true"></i>
+          <td>
+            <a href="{{ url_for('delete_item', item_id=x ) }}" class="btn btn-info" role="button">
+              <i class="fas fa-trash-alt" aria-hidden="true"></i>
             </a>
-          </button>
+          </td>
           {% endif %}
           {% endfor %}
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <h4 class="section-header">Create a List</h4>
-        <button type="button" name="button">
-          <a href="{{ url_for('create') }}">
-            <i class="fa fa-list" aria-hidden="true"></i>
-            Create
-          </a>
-        </button>
-      </div>
-    </div>
-    {% else %}
-    <!-- This is used for the initial load of the webpage -->
-    <div class="col-md-12">
-      <h4 class="section-header">All Lists</h4>
-      <div class="list-group">
-        {% for list in lists %}
-        <a href="{{ url_for('home', list_id=list._id) }}" class="list-group-item list-group-item-action">
-          {{ list.list_name }} - {{ list.created }}
-        </a>
+        </tr>
         {% endfor %}
-      </div>
-    </div>
-    {% endif %}
+      </tbody>
+    </table>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <h4 class="section-header">Create a List</h4>
-      <button type="button" name="button">
-        <a href="{{ url_for('create') }}">
-          <i class="fa fa-list" aria-hidden="true"></i>
-          Create
-        </a>
-      </button>
-    </div>
+  {% else %}
+  <!-- This is used for the initial load of the webpage -->
+  <div class="col-md-12">
+    <h4>Lists</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>List Name</th>
+          <th>Category</th>
+          <th class="mobile">Created by</th>
+          <th class="mobile">Last Updated</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for list in lists %}
+        <tr>
+          <td>{{ list.list_name }}</td>
+          <td>{{ list.categories }}</td>
+          <td class="mobile">{{ list.list_author }}</td>
+          <td class="mobile">{{ list.created }}</td>
+          <td><a href="{{ url_for('home', list_id=list._id) }}" class="btn btn-info" role="button">Show</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
+  {% endif %}
+</div>
+<div class="row bottom">
+  <div class="col-md-12">
+    <h4 class="section-header">Create a List</h4>
+    <button type="button" name="button">
+      <a href="{{ url_for('create') }}">
+        <i class="fa fa-list" aria-hidden="true"></i>
+        Create
+      </a>
+    </button>
+  </div>
+</div>
 </div>
 
 {% endblock %}

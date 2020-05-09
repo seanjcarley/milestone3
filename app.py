@@ -175,6 +175,21 @@ def add_items(obj):
                            )
 
 
+@app.route('/add_aitems/<obj>', methods=['POST', 'GET'])
+def add_aitems(obj):
+    list_id = ObjectId(obj)
+
+    the_list = set_insert_list(_id=ObjectId(obj)) + set_insert_items(obj)
+
+    return render_template("add_aitems.html",
+                           the_list=the_list[0],
+                           the_cat=the_list[1],
+                           obid=the_list[2],
+                           the_itm=the_list[3],
+                           itm_id=the_list[4]
+                           )
+
+
 @app.route('/finish_items')
 def finish_items():
     return redirect(url_for('home'))
