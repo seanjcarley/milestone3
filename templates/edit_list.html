@@ -2,105 +2,106 @@
 
 {% block content %}
 <div class="col-md-12 main-section">
-<div class="row">
-  <div class="col-md-12">
-    <h3 class="section-header">Edit your List</h3>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="section-header">Edit your List</h3>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <form id="list_form" class="col" action="{{ url_for('update_list', list_id=obid) }}" method="post">
-      <div class="list-group">
-        {% for k, v in the_list.items() %}
-        {% if k == "list_name" %}
-        <div class="row">
-          <div class="col-md-1"></div>
-          <div class="col-md-4">
-            <h4>Title</h4>
+  <div class="row">
+    <div class="col-md-12">
+      <form id="list_form" class="col" action="{{ url_for('update_list', list_id=obid) }}" method="post">
+        <div class="list-group">
+          {% for k, v in the_list.items() %}
+          {% if k == "list_name" %}
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+              <h4>Title</h4>
+            </div>
+            <div class="col-md-6">
+              <input id="list_name" name="list_name" type="text" class="form-control" value="{{ v }}">
+            </div>
+            <div class="col-md-1"></div>
           </div>
-          <div class="col-md-6">
-            <input id="list_name" name="list_name" type="text" class="form-control" value="{{ v }}">
+          {% elif k == "list_author" %}
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+              <h4>Created by</h4>
+            </div>
+            <div class="col-md-6">
+              <input id="list_author" name="list_author" type="text" class="form-control" value="{{ v }}">
+            </div>
+            <div class="col-md-1"></div>
           </div>
-          <div class="col-md-1"></div>
+          {% elif k == "categories" %}
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+              <h4>Category</h4>
+            </div>
+            <div class="col-md-6">
+              <input id="categories" name="categories" type="text" class="form-control uppercase" value="{{ v }}" disabled>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+          {% elif k == "created" %}
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+              <h4>Last Updated</h4>
+            </div>
+            <div class="col-md-6">
+              <input id="created" name="created" type="text" class="form-control" value="{{ v }}" disabled>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+          {% endif %}
+          {% endfor %}
         </div>
-        {% elif k == "list_author" %}
-        <div class="row">
-          <div class="col-md-1"></div>
-          <div class="col-md-4">
-            <h4>Created by</h4>
-          </div>
-          <div class="col-md-6">
-            <input id="list_author" name="list_author" type="text" class="form-control" value="{{ v }}">
-          </div>
-          <div class="col-md-1"></div>
-        </div>
-        {% elif k == "categories" %}
-        <div class="row">
-          <div class="col-md-1"></div>
-          <div class="col-md-4">
-            <h4>Category</h4>
-          </div>
-          <div class="col-md-6">
-            <input id="categories" name="categories" type="text" class="form-control uppercase" value="{{ v }}" disabled>
-          </div>
-          <div class="col-md-1"></div>
-        </div>
-        {% elif k == "created" %}
-        <div class="row">
-          <div class="col-md-1"></div>
-          <div class="col-md-4">
-            <h4>Last Updated</h4>
-          </div>
-          <div class="col-md-6">
-            <input id="created" name="created" type="text" class="form-control" value="{{ v }}" disabled>
-          </div>
-          <div class="col-md-1"></div>
-        </div>
-        {% endif %}
-        {% endfor %}
-      </div>
-      <input type="submit" name="" value="Update List">
-    </form>
+        <input type="submit" name="" value="Update List">
+      </form>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <h3 class="section-header">Edit List Items</h3>
-    <div class="row">
-      <div class="col-md-12">
-        <table class="table table-striped">
-          <tbody>
-            {% for i in the_itm %}
-            <tr>
-              {% for k, v in i.items() %}
-              {% if k != 'completed' %}
-              <td>
-                {{ k }}:
-                <input id="{{ k }}" name="{{ k }}" type="text" class="form-control" value="{{ v }}">
-              </td>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="section-header">Edit List Items</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <tbody>
+          {% for i in the_itm %}
+          <tr>
+            {% for k, v in i.items() %}
+            {% if k != 'completed' %}
+            <td>
+              {{ k }}:
+              <input id="{{ k }}" name="{{ k }}" type="text" class="form-control" value="{{ v }}">
+            </td>
+            {% else %}
+            <td>
+              Done:
+              {% if v == "on" %}
+              <input id="completed" name="completed" type="checkbox" checked>
               {% else %}
-              <td>
-                {% if v == "on" %}
-                <input id="completed" name="completed" type="checkbox" checked>
-                {% else %}
-                <input id="completed" name="completed" type="checkbox">
-                {% endif %}
-              </td>
-              <td>
-                <a href="" class="btn btn-info" role="button">
-                  Update
-                </a>
-              </td>
+              <input id="completed" name="completed" type="checkbox">
               {% endif %}
-              {% endfor %}
-            </tr>
+            </td>
+            {% endif %}
             {% endfor %}
-          </tbody>
-        </table>
-      </div>
+            <td>
+              <a href="" class="btn btn-info" role="button">
+                Update
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
-</div>
 
-  {% endblock %}
+{% endblock %}

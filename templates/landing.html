@@ -6,7 +6,7 @@
 <div class="row">
   <div class="col">
     {% if ilist %}
-    <h3 class="section-header">{{ wiki_ttl }}</h3>
+    <h3 class="section-header"><i class="fab fa-wikipedia-w"></i>: {{ wiki_ttl }}</h3>
     <p>{{ wiki_smry }}</p>
     <p>Information Provided by <a href="{{ url_for('wikipedia') }}">Wikipedia</a></p>
     {% else %}
@@ -15,7 +15,7 @@
       This site allows you to create a reading list of books or comics
       you would like to read, TV shows or movies you'd like to watch,
       or games you'd like to play. You can even check off completed items to
-      keep tack of your progress. Lists can be edited to add or remove items.
+      keep tack of your progress.
     </p>
     {% endif %}
   </div>
@@ -90,7 +90,7 @@
           {% for k, v in item.items() %}
           {% if k == "title" %}
           <td>
-            <a href="" class="">
+            <a href="{{ url_for('home', list_id=item.list_id, item_id=item._id) }}" class="">
               {{ v }}
             </a>
           </td>

@@ -15,7 +15,6 @@ app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
 
 mongo = PyMongo(app)
 
-
 # set timestamp
 def set_now():
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -27,10 +26,10 @@ def find_list_id(list_id):
     lst = mongo.db.lists.find({"_id": ObjectId(list_id)})
     return lst
 
-# find item using items "_id"
-def find_item_id(list_id):
-    itm = mongo.db.items.find({"_id": ObjectId(list_id)})
-    return lst
+# find item title using items "_id"
+def find_item_title(item_id):
+    itm = mongo.db.items.find_one({"_id": item_id}, {"items.title"})
+    return itm
 
 
 # find items using items "list_id"
@@ -101,32 +100,51 @@ def set_insert_items(list_id):
     return(itm_list, item_id)
 
 
+def get_wiki(item_id):
+    ttl = find_item_title(item_id)
+    for k, v in ttl.items():
+        if k == "items":
+            for l, w in v.items():
+                try:
+                    tle = wiki.page(w).title
+                    smry = wiki.summary(w, sentences=5)
+                except:
+                    tle = "Noooooo!"
+                    smry = "Em... Sorry! Something went wrong getting the info from Wikipedia"
+
+    return (tle, smry)
+
+
 @app.route('/')
 @app.route('/home')
 @app.route('/home/<list_id>')
-def home(list_id=ObjectId("000000000000000000000000")):
+@app.route('/home/<list_id>/<item_id>')
+def home(list_id=ObjectId("000000000000000000000000"), item_id=ObjectId("000000000000000000000000")):
     if list_id != ObjectId("000000000000000000000000"):
         dict_list = []
         init_list = find_list_id(list_id)
         itms = find_item_list(list_id)
+        itm_id_lst = []
         for m in itms:
             itm_list = {}
             for k, v in m.items():
                 if k == "_id":
                     itm_list[k] = v
+                    itm_id_lst.append(v)
+                elif k == "list_id":
+                    itm_list[k] = v
                 elif k == "items":
                     for l, w in v.items():
-                        if l == "title":
-                            itm_list[l] = w
-                            try:
-                                title = wiki.page(w).title
-                                summary = wiki.summary(w, sentences=5)
-                            except:
-                                title = "Error"
-                                summary = "Em... Sorry! Something went wrong getting the info from Wikipedia"
-                        else:
-                            itm_list[l] = w
+                        itm_list[l] = w
             dict_list.append(itm_list)
+            print(dict_list)
+        if item_id == ObjectId("000000000000000000000000"):
+            wiki = get_wiki(itm_id_lst[0])
+        else:
+            wiki = get_wiki(ObjectId(item_id))
+
+        title = wiki[0]
+        summary = wiki[1]
 
         return render_template("landing.html", lists=find_lists(),
                                ilist=dict_list, wiki_smry=summary, wiki_ttl=title)
@@ -162,11 +180,17 @@ def insert_list():
 def add_items(obj):
     list_id = ObjectId(obj)
     data = request.form.to_dict()
+    print(data)
+    if "completed" in data:
+        pass
+    else:
+        data["completed"] = "off"
+
     add_item(list_id=list_id, items=data, created=set_now())
 
     the_list = set_insert_list(_id=ObjectId(obj)) + set_insert_items(obj)
 
-    return render_template("add_aitems.html",
+    return render_template("add_items.html",
                            the_list=the_list[0],
                            the_cat=the_list[1],
                            obid=the_list[2],
@@ -177,11 +201,11 @@ def add_items(obj):
 
 @app.route('/add_aitems/<obj>', methods=['POST', 'GET'])
 def add_aitems(obj):
-    list_id = ObjectId(obj)
 
     the_list = set_insert_list(_id=ObjectId(obj)) + set_insert_items(obj)
+    print(the_list)
 
-    return render_template("add_aitems.html",
+    return render_template("add_items.html",
                            the_list=the_list[0],
                            the_cat=the_list[1],
                            obid=the_list[2],
@@ -231,7 +255,6 @@ def edit_list(list_id):
 def update_list(list_id):
     list_data = request.form.to_dict()
     list_data["created"] = set_now()
-    print(list_data)
     mongo.db.lists.update({"_id":ObjectId(list_id)}, {"$set": list_data})
 
     return redirect(url_for('edit_list', list_id=list_id))

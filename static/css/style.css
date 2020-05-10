@@ -1,71 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700');
 
-/* Colours */
-/* 26392F - Kombu Green */
-/* EEE82C - Titanium Yellow */
-/* 91CB3E - Yellow Green */
-/* FFFDED - Ivory */
-/* A4036F - Flirt */
-
 /* ---------------------------------- body ---------------------------------- */
-html, body {
-    padding: 0;
-    margin: 0;
-    font-family: "Exo", sans-serif;
-    height: 100%;
-    width: 100%;
-}
 
-.container-fluid {
-    margin: 0;
-    padding: 0;
-}
-
-.row {
-    margin: 0;
-}
-
-.bottom {
-  position: absolute;
-  bottom: 0;
-}
 
 /* --------------------------------- header --------------------------------- */
-header {
-  color: blue;
-  background: red;
-  text-align: center;
-}
 
 
 /* --------------------------------- Section -------------------------------- */
-section {
-  display: block;
-  height: 90vh;
-}
 
-.section-header {
-  text-align: center;
-}
-
-.side-section {
-
-}
-
-.main-section {
-  height: 80vh;
-}
 
 /* --------------------------------- Footer --------------------------------- */
-footer {
-  text-align: center;
-  margin: 0;
-  overflow: hidden;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-}
+
 
 /* --------------------------------- Text ----------------------------------- */
 
@@ -80,33 +25,5 @@ footer {
 /* ----------------------------- Media Queries ------------------------------ */
 
 @media (max-width:767px) {
-  body {
-    display: flex;
-    flex-direction: column;
-  }
 
-  footer {
-    overflow: scroll;
-    flex-shrink: 0;
-  }
-
-  header {
-    text-align: left;
-  }
-
-  .copyright {
-    text-align: center;
-  }
-
-  .main-section {
-    min-height: 100%;
-  }
-
-  .mobile {
-		display: none;
-	}
-
-  .side-section {
-    min-height: 100%;
-  }
 }
