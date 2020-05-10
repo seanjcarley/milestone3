@@ -107,9 +107,19 @@
           {% for m, x in item.items() %}
           {% if m == "_id" %}
           <td>
-            <a href="{{ url_for('delete_item', item_id=x ) }}" class="btn btn-info" role="button">
-              <i class="fas fa-trash-alt" aria-hidden="true"></i>
-            </a>
+            <div class="dropdown">
+              <button type="button" name="button" data-toggle="dropdown">
+                Action...
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="">
+                  Edit Item
+                </a>
+                <a class="dropdown-item" href="{{ url_for('delete_item', item_id=x ) }}">
+                  Delete
+                </a>
+              </div>
+            </div>
           </td>
           {% endif %}
           {% endfor %}

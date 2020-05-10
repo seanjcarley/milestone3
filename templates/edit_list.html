@@ -70,36 +70,40 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <table class="table table-striped">
-        <tbody>
-          {% for i in the_itm %}
-          <tr>
-            {% for k, v in i.items() %}
-            {% if k != 'completed' %}
-            <td>
-              {{ k }}:
-              <input id="{{ k }}" name="{{ k }}" type="text" class="form-control" value="{{ v }}">
-            </td>
+      {% for i in the_itm %}
+      <form class="" action="{{ url_for('update_item', list_id=obid, item_id=itm_id) }}" method="post">
+        {% for k, v in i.items() %}
+        {% if k != 'completed' %}
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-4">
+            <h4>{{ k }}</h4>
+          </div>
+          <div class="col-md-6">
+            <input id="{{ k }}" name="{{ k }}" type="text" class="form-control" value="{{ v }}">
+          </div>
+          <div class="col-md-1"></div>
+        </div>
+        {% else %}
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-4">
+            <h4>{{ k }}</h4>
+          </div>
+          <div class="col-md-6">
+            {% if v == "on" %}
+            <input id="completed" name="completed" type="checkbox" checked>
             {% else %}
-            <td>
-              Done:
-              {% if v == "on" %}
-              <input id="completed" name="completed" type="checkbox" checked>
-              {% else %}
-              <input id="completed" name="completed" type="checkbox">
-              {% endif %}
-            </td>
+            <input id="completed" name="completed" type="checkbox">
             {% endif %}
-            {% endfor %}
-            <td>
-              <a href="" class="btn btn-info" role="button">
-                Update
-              </a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+          </div>
+          <div class="col-md-1"></div>
+        </div>
+        <input type="submit" name="" value="Update Item">
+        {% endif %}
+        {% endfor %}
+      </form>
+      {% endfor %}
     </div>
   </div>
 </div>

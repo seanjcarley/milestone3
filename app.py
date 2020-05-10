@@ -262,11 +262,16 @@ def update_list(list_id):
 
 @app.route('/update_item/<list_id>/<item_id>', methods=['POST', 'GET'])
 def update_item(list_id, item_id):
+    print(item_id)
+    print(list_id)
     item_data = request.form.to_dict()
-    item_data["created"] = set_now()
-    list_data["created"] = set_now()
-    mongo.db.items.update({"_id":ObjectId(item_id)}, {"$set": item_data})
-    mongo.db.lists.update({"_id":ObjectId(list_id)}, {"$set": list_data})
+    if "completed" in item_data:
+        pass
+    else:
+        data["completed"] = "off"
+    print(item_data)
+    mongo.db.items.update_one({"_id":ObjectId(item_id)}, {"$set": {"items":item_data, "created":set_now()}})
+    mongo.db.lists.update_one({"_id":ObjectId(list_id)}, {"$set": {"created": set_now()}})
 
     return redirect(url_for('edit_list', list_id=list_id))
 
