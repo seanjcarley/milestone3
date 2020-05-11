@@ -61,11 +61,6 @@
         </div>
         <input type="submit" name="" value="Update List">
       </form>
-      <button class="btn" type="submit" name="action">
-        <a href="{{ url_for('finish_items') }}" class="waves-effect waves-light btn btn_small">
-          Finish <i class="fa fa-edit" aria-hidden="true"></i>
-        </a>
-      </button>
     </div>
   </div>
   <div class="row">
@@ -76,46 +71,28 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        {% for i in the_itm[0] %}
-        {% if i != "_id" %}
-          <th class="uppercase">{{ i }}</th>
-        {% endif %}
-        {% endfor %}
+
       </tr>
     </thead>
     <tbody>
-      {% for j in the_itm %}
+    {% for i in the_itm %}
       <tr>
-      {% for k, v in j.items() %}
-      {% if k != "_id" %}
+      {% for k, v in i.items() %}
         <td>
           {% if k != 'completed' %}
-          {{ v }}
+          {{ k }}: {{ v }}
           {% else %}
-          {% if k == "completed" %}
+          {{ k }}:
           {% if v == "on" %}
           <input id="completed" name="completed" type="checkbox" checked>
           {% else %}
           <input id="completed" name="completed" type="checkbox">
           {% endif %}
           {% endif %}
-          {% endif %}
         </td>
-      {% endif %}
-      {% endfor %}
-      {% for l, w in j.items() %}
-      {% if l == "_id" %}
-        <td>
-          <button class="btn" type="submit" name="action">
-            <a href="" class="waves-effect waves-light btn btn_small">
-              Edit Item <i class="fa fa-edit" aria-hidden="true"></i>
-            </a>
-          </button>
-        </td>
-      {% endif %}
       {% endfor %}
       </tr>
-      {% endfor %}
+    {% endfor %}
     </tbody>
   </table>
 </div>

@@ -34,7 +34,7 @@
 <div class="row">
   {% if ilist %}
   <!-- This is used to load selected list items -->
-  <div class="col-md-6">
+  <div class="col-md-12">
     <h4>Lists</h4>
     <table class="table table-striped">
       <thead>
@@ -51,21 +51,16 @@
           </td>
           <td>{{ list.categories }}</td>
           <td>
-            <div class="dropdown">
-              <button type="button" name="button" data-toggle="dropdown">
-                Action...
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{ url_for('add_aitems', obj=list._id) }}">
-                  Add Item
-                </a>
-                <a class="dropdown-item" href="{{ url_for('edit_list', list_id=list._id)}}">
-                  Edit List
-                </a>
-                <a class="dropdown-item" href="{{ url_for('delete_list', list_id=list._id ) }}">
-                  Delete List
-                </a>
-              </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="List Actions">
+              <a class="btn-secondary" href="{{ url_for('add_aitems', obj=list._id) }}" role="button">
+                Add Item
+              </a>
+              <a class="btn-secondary" href="{{ url_for('edit_list', list_id=list._id)}}" role="button">
+                Edit List
+              </a>
+              <a class="btn-secondary" href="{{ url_for('delete_list', list_id=list._id ) }}" role="button">
+                Delete List
+              </a>
             </div>
           </td>
         </tr>
@@ -73,7 +68,9 @@
       </tbody>
     </table>
   </div>
-  <div class="col-md-6">
+</div>
+<div class="row">
+  <div class="col-md-12">
     <h4>Items</h4>
     <table class="table table-striped">
       <thead>

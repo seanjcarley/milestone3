@@ -91,11 +91,15 @@ def set_insert_items(list_id):
     itm = find_item_list(list_id)
 
     for m in itm:
+        item_dict = {}
         for n, o in m.items():
             if n == "_id":
                 item_id = o
+                item_dict[n] = o
             if n == "items":
-                itm_list.append(o)
+                for p, q in o.items():
+                    item_dict[p] = q
+        itm_list.append(item_dict)
 
     return(itm_list, item_id)
 
@@ -137,7 +141,6 @@ def home(list_id=ObjectId("000000000000000000000000"), item_id=ObjectId("0000000
                     for l, w in v.items():
                         itm_list[l] = w
             dict_list.append(itm_list)
-            print(dict_list)
         if item_id == ObjectId("000000000000000000000000"):
             wiki = get_wiki(itm_id_lst[0])
         else:
@@ -180,7 +183,6 @@ def insert_list():
 def add_items(obj):
     list_id = ObjectId(obj)
     data = request.form.to_dict()
-    print(data)
     if "completed" in data:
         pass
     else:
@@ -203,7 +205,6 @@ def add_items(obj):
 def add_aitems(obj):
 
     the_list = set_insert_list(_id=ObjectId(obj)) + set_insert_items(obj)
-    print(the_list)
 
     return render_template("add_items.html",
                            the_list=the_list[0],
@@ -262,14 +263,11 @@ def update_list(list_id):
 
 @app.route('/update_item/<list_id>/<item_id>', methods=['POST', 'GET'])
 def update_item(list_id, item_id):
-    print(item_id)
-    print(list_id)
     item_data = request.form.to_dict()
     if "completed" in item_data:
         pass
     else:
         data["completed"] = "off"
-    print(item_data)
     mongo.db.items.update_one({"_id":ObjectId(item_id)}, {"$set": {"items":item_data, "created":set_now()}})
     mongo.db.lists.update_one({"_id":ObjectId(list_id)}, {"$set": {"created": set_now()}})
 
