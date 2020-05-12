@@ -267,7 +267,7 @@ def update_item(list_id, item_id):
     if "completed" in item_data:
         pass
     else:
-        data["completed"] = "off"
+        item_data["completed"] = "off"
     mongo.db.items.update_one({"_id":ObjectId(item_id)}, {"$set": {"items":item_data, "created":set_now()}})
     mongo.db.lists.update_one({"_id":ObjectId(list_id)}, {"$set": {"created": set_now()}})
 

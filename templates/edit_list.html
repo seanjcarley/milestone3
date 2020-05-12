@@ -81,16 +81,18 @@
           <th class="uppercase">{{ i }}</th>
         {% endif %}
         {% endfor %}
+        <th></th>
       </tr>
     </thead>
     <tbody>
       {% for j in the_itm %}
       <tr>
+        <form class="" action="{{ url_for('update_item', list_id=obid, item_id=j._id) }}" method="post">
       {% for k, v in j.items() %}
       {% if k != "_id" %}
         <td>
           {% if k != 'completed' %}
-          {{ v }}
+          <input id="{{ k }}" name="{{ k }}" type="text" class="form-control" value="{{ v }}">
           {% else %}
           {% if k == "completed" %}
           {% if v == "on" %}
@@ -106,18 +108,18 @@
       {% for l, w in j.items() %}
       {% if l == "_id" %}
         <td>
-          <button class="btn" type="submit" name="action">
-            <a href="" class="waves-effect waves-light btn btn_small">
-              Edit Item <i class="fa fa-edit" aria-hidden="true"></i>
-            </a>
+          <button class="btn" type="submit" name="">
+            Edit Item <i class="fa fa-edit" aria-hidden="true"></i>
           </button>
         </td>
       {% endif %}
       {% endfor %}
+    </form>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+  </form>
 </div>
 
 {% endblock %}

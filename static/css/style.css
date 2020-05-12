@@ -1,16 +1,46 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700');
 
+/* #191716 - eerie black */
+/* #e6af2e - goldenrod */
+/* #e0e2db - platinum */
+/* #3d348b - cosmic cobalt */
+/* #beb7a4 - khaki (web)*/
+
 /* ---------------------------------- body ---------------------------------- */
 
-
 /* --------------------------------- header --------------------------------- */
+header {
+  background-color: #191716;
+}
 
+.bg-dark {
+  background-color: #191716 !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #e6af2e;
+  transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  -webkit-transition: all 0.35s ease-in-out;
+  -o-transition: all 0.35s ease-in-out;
+}
+
+.navbar-dark .navbar-brand {
+  color: #e6af2e;
+  transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  -webkit-transition: all 0.35s ease-in-out;
+  -o-transition: all 0.35s ease-in-out;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-brand:hover {
+  color: #3d348b;
+}
 
 /* --------------------------------- Section -------------------------------- */
 
-
 /* --------------------------------- Footer --------------------------------- */
-
 
 /* --------------------------------- Text ----------------------------------- */
 
@@ -25,5 +55,7 @@
 /* ----------------------------- Media Queries ------------------------------ */
 
 @media (max-width:767px) {
-
+  .mobile{
+    display: none;
+  }
 }

@@ -7,7 +7,7 @@
   <div class="col">
     {% if ilist %}
     <h3 class="section-header"><i class="fab fa-wikipedia-w"></i>: {{ wiki_ttl }}</h3>
-    <p>{{ wiki_smry }}</p>
+    <p class="mobile">{{ wiki_smry }}</p>
     <p>Information Provided by <a href="{{ url_for('wikipedia') }}">Wikipedia</a></p>
     {% else %}
     <h3 class="section-header">What's it all about?</h3>
@@ -51,15 +51,15 @@
           </td>
           <td>{{ list.categories }}</td>
           <td>
-            <div class="btn-group btn-group-sm" role="group" aria-label="List Actions">
+            <div class="btn-group" role="group" aria-label="List Actions">
               <a class="btn-secondary" href="{{ url_for('add_aitems', obj=list._id) }}" role="button">
-                Add Item
+                <i class="fas fa-plus"></i>
               </a>
               <a class="btn-secondary" href="{{ url_for('edit_list', list_id=list._id)}}" role="button">
-                Edit List
+                <i class="fas fa-edit"></i>
               </a>
               <a class="btn-secondary" href="{{ url_for('delete_list', list_id=list._id ) }}" role="button">
-                Delete List
+                <i class="far fa-trash-alt"></i>
               </a>
             </div>
           </td>
