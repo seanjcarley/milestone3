@@ -1,31 +1,7 @@
 {% extends 'base.html' %}
 
-{% block side_content %}
-
-<div class="col-md-3 side-section">
-<div class="row">
-  <div class="col">
-    {% if ilist %}
-    <h3 class="section-header"><i class="fab fa-wikipedia-w"></i>: {{ wiki_ttl }}</h3>
-    <p class="mobile">{{ wiki_smry }}</p>
-    <p>Information Provided by <a href="{{ url_for('wikipedia') }}">Wikipedia</a></p>
-    {% else %}
-    <h3 class="section-header">What's it all about?</h3>
-    <p>
-      This site allows you to create a reading list of books or comics
-      you would like to read, TV shows or movies you'd like to watch,
-      or games you'd like to play. You can even check off completed items to
-      keep tack of your progress.
-    </p>
-    {% endif %}
-  </div>
-</div>
-</div>
-
-{% endblock %}
-
 {% block content %}
-<div class="col-md-9 main-section">
+<div class="col-md-12 main-section">
 <div class="row">
   <div class="col-md-12">
     <h3 class="section-header">All Lists</h3>
@@ -34,7 +10,8 @@
 <div class="row">
   {% if ilist %}
   <!-- This is used to load selected list items -->
-  <div class="col-md-12">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
     <h4>Lists</h4>
     <table class="table table-striped">
       <thead>
@@ -49,7 +26,9 @@
           <td>
             <a href="{{ url_for('home', list_id=list._id) }}">{{ list.list_name }}</a>
           </td>
-          <td>{{ list.categories }}</td>
+          <td>
+            <a href="{{ url_for('home', list_id=list._id) }}">{{ list.categories }}</a>
+          </td>
           <td>
             <div class="btn-group" role="group" aria-label="List Actions">
               <a class="btn-secondary" href="{{ url_for('add_aitems', obj=list._id) }}" role="button">
@@ -68,66 +47,56 @@
       </tbody>
     </table>
   </div>
+  <div class="col-md-1"></div>
 </div>
 <div class="row">
-  <div class="col-md-12">
-    <h4>Items</h4>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Released</th>
-          <th>Done</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in ilist %}
-        <tr>
-          {% for k, v in item.items() %}
-          {% if k == "title" %}
-          <td>
-            <a href="{{ url_for('home', list_id=item.list_id, item_id=item._id) }}" class="">
-              {{ v }}
-            </a>
-          </td>
-          {% elif k == "released" %}
-          <td>{{ v }}</td>
-          {% elif k == "completed" %}
-          {% if v == "on" %}
-          <td><input id="completed" name="completed" type="checkbox" checked disabled></td>
-          {% else %}
-          <td><input id="completed" name="completed" type="checkbox"></td>
-          {% endif %}
-          {% endif %}
-          {% endfor %}
-          {% for m, x in item.items() %}
-          {% if m == "_id" %}
-          <td>
-            <div class="dropdown">
-              <button type="button" name="button" data-toggle="dropdown">
-                Action...
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="">
-                  Edit Item
-                </a>
-                <a class="dropdown-item" href="{{ url_for('delete_item', item_id=x ) }}">
-                  Delete
-                </a>
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <h4>List Items</h4>
+    <div id="accordion_2">
+      {% for item in ilist %}
+      <div class="card">
+        <div class="card-header">
+          <a class="card-link" data-toggle="collapse" href="#c{{ loop.index }}">
+            <h5>{{ item.title}} - ({{ item.released }})</h5>
+          </a>
+        </div>
+        <div id="c{{ loop.index }}" class="collapse" data-parent="#accordion_2">
+          <div class="card-body">
+            <div class="row-card">
+              <div class="col-xs-6">
+                {% for k, v in item.items() %}
+                {% if k != "_id" and k != "list_id" and k != "title" and k != "released" and k != "info" %}
+                {% if k != "completed" %}
+                  {{ k }}: {{ v }}<br/>
+                {% else %}
+                {% if v == "on" %}
+                  <td><input id="completed" name="completed" type="checkbox" checked disabled></td>
+                {% else %}
+                  <td><input id="completed" name="completed" type="checkbox"></td>
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+              </div>
+              <div class="col-xs-6">
+                {% for l, w in item.info.items() %}
+                <h5>{{ l }}</h5>
+                {{ w }}
+                {% endfor %}
               </div>
             </div>
-          </td>
-          {% endif %}
-          {% endfor %}
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
+  <div class="col-md-1"></div>
   {% else %}
   <!-- This is used for the initial load of the webpage -->
-  <div class="col-md-12">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
     <h4>Lists</h4>
     <table class="table table-striped">
       <thead>
@@ -152,12 +121,13 @@
       </tbody>
     </table>
   </div>
+  <div class="col-md-1"></div>
   {% endif %}
 </div>
 <div class="row bottom">
   <div class="col-md-12">
     <h4 class="section-header">Create a List</h4>
-    <button type="button" name="button">
+    <button class="button" type="button" name="button">
       <a href="{{ url_for('create') }}">
         <i class="fa fa-list" aria-hidden="true"></i>
         Create

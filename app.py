@@ -106,17 +106,22 @@ def set_insert_items(list_id):
 
 def get_wiki(item_id):
     ttl = find_item_title(item_id)
+    wiki_dict = {}
     for k, v in ttl.items():
         if k == "items":
             for l, w in v.items():
                 try:
                     tle = wiki.page(w).title
+                    print(tle)
                     smry = wiki.summary(w, sentences=5)
                 except:
                     tle = "Noooooo!"
                     smry = "Em... Sorry! Something went wrong getting the info from Wikipedia"
 
-    return (tle, smry)
+    wiki_dict[tle] = smry
+    print(wiki_dict)
+
+    return (wiki_dict)
 
 
 @app.route('/')
@@ -134,6 +139,7 @@ def home(list_id=ObjectId("000000000000000000000000"), item_id=ObjectId("0000000
             for k, v in m.items():
                 if k == "_id":
                     itm_list[k] = v
+                    itm_list["info"] = get_wiki(ObjectId(v))
                     itm_id_lst.append(v)
                 elif k == "list_id":
                     itm_list[k] = v
@@ -141,16 +147,9 @@ def home(list_id=ObjectId("000000000000000000000000"), item_id=ObjectId("0000000
                     for l, w in v.items():
                         itm_list[l] = w
             dict_list.append(itm_list)
-        if item_id == ObjectId("000000000000000000000000"):
-            wiki = get_wiki(itm_id_lst[0])
-        else:
-            wiki = get_wiki(ObjectId(item_id))
-
-        title = wiki[0]
-        summary = wiki[1]
 
         return render_template("landing.html", lists=find_lists(),
-                               ilist=dict_list, wiki_smry=summary, wiki_ttl=title)
+                               ilist=dict_list)
     else:
         init_list = find_list_id(list_id)
         return render_template("landing.html", lists=find_lists())
