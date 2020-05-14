@@ -1,15 +1,14 @@
 # Milestone 3 Project of Seán Carley
-## Site name
+## Bucket Lists
 
 ### Technologies
 1. HTML - Used to define the structure of webpages
-2. CSS - Used to style web pages
-3. Bootstrap - Framework to simplify webpage design
-4. JavaScript - Programming language to provide logic operations on webpages
-5. JQuery - JavaScript library which simplifies DOM manipulation and traversal
-6. Python - 
-7. Flask Framework -
-8. MongoDB -
+1. CSS - Used to style web pages
+1. Bootstrap - Framework to simplify webpage design
+1. Python - Python is a programming language that lets you work more quickly 
+    and integrate your systems more effectively.
+1. Flask Framework - lightweight WSGI web application framework.
+1. MongoDB - general purpose, document-based, distributed database
 
 ### Chosen Idea: Website to store users lists
 #### Site Owner:
@@ -57,7 +56,7 @@ the list author and the category.
 * As a user of this site, I want the Create List page to allow me input items to be added
 the new list.
 
-#### Create List Page
+#### Add Items Page
 * As a user of this site, I want the Add Items to show the list information just 
 entered. I also want the date and time of the last edit to the list to be displayed.
 * As a user of this site, I want the Add Items to provide the fields to input the relevant
@@ -65,6 +64,53 @@ information, the fields should be relevant to the category chosen in the Create 
 * As a user of this site, I want the Add Items page to allow entering further items or to 
 finish and return to the Home Page.
 
-### Deployed site
+#### Add Items Page
+* As a user of this site, I want the Add Additional Items page to allow me to add additional 
+items to an existing list.
+* As a user of this site, I want the Add Additional Items page to show information of the list, 
+existing items, and items that were just added.
+* As a user of this site, I want the Add Items page to allow entering further items or to 
+finish and return to the Home Page.
 
-### Images/Photos
+### Deployed site
+The site was developed, for the most part by using Atom text editor with a number of add-ons for 
+HTML, CSS, and Python on a Ubuntu machine. GitPod was also used when working when access to this machine 
+was not available. This site is version controlled via GitHub, and 
+deployed via Heroku. The link to the deployed site is 
+[https://seans-wishlist-app.herokuapp.com/](https://seans-wishlist-app.herokuapp.com/). The deployment 
+to heroku was done using the Heroku CLI. There were no additional configuration changes made to Heroku. 
+MongoDB was used as the database solution. The environment variables are stored in the env.py.
+
+### Credits
+The Nav Bar used was obtained from the W3Schools web site at this link 
+[https://www.w3schools.com/bootstrap4/bootstrap_navbar.asp](https://www.w3schools.com/bootstrap4/bootstrap_navbar.asp)
+
+```html
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<!-- Brand -->
+    <a class="navbar-brand" href="{{ url_for('home') }}">Bucket Lists</a>
+<!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+<!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+<!-- added ml-auto to right align the menu on desktop -->
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('home') }}">
+                    <i class="fa fa-home" aria-hidden="true"></i> Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('create') }}">
+                    <i class="fa fa-sign-in-alt" aria-hidden="true"></i> Create list
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+```
+
+Further learning relating to Flask was obtaind from numerous sources, mainly [https://flask.palletsprojects.com/en/1.1.x/](https://flask.palletsprojects.com/en/1.1.x/)  
+[Stack Overflow](https://stackoverflow.com/) amongst others were used to assist in trouble-shooting, and expanding ideas.

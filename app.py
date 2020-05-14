@@ -54,7 +54,8 @@ def find_categories():
 def add_list(**kwargs):
     mongo.db.lists.insert_one(kwargs)
 
-
+# insert an item, kwargs used as "items" dictionary is dependent on the category
+# choosen
 def add_item(**kwargs):
     mongo.db.items.insert_one(kwargs)
 
@@ -103,7 +104,10 @@ def set_insert_items(list_id):
 
     return(itm_list, item_id)
 
-
+# The below function takes the title of the list item and searches wikipedia.com for 
+# an entry. There are a number of Errors that can be returned by the api, but for the 
+# purposes of this site a generic error is sufficient. There is the potential for 
+# incorrect information to be displayed depending on the search term.
 def get_wiki(item_id):
     ttl = find_item_title(item_id)
     wiki_dict = {}
@@ -112,14 +116,12 @@ def get_wiki(item_id):
             for l, w in v.items():
                 try:
                     tle = wiki.page(w).title
-                    print(tle)
                     smry = wiki.summary(w, sentences=5)
                 except:
                     tle = "Noooooo!"
                     smry = "Em... Sorry! Something went wrong getting the info from Wikipedia"
 
     wiki_dict[tle] = smry
-    print(wiki_dict)
 
     return (wiki_dict)
 
