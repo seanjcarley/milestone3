@@ -10,17 +10,19 @@
   <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
-      <form class="mobile" action="{{ url_for('insert_list') }}" method="POST">
+      <form class="" action="{{ url_for('insert_list') }}" method="POST">
         <div class="input-group mb-3">
           <div class="input-group-prepend col-3">
-            <span class="input-group-text col-12 center">List Title:</span>
+            <span class="input-group-text col-12 center mobile">List Title:</span>
+            <span class="input-group-text col-12 center desktop">List</span>
           </div>
           <input id="list_name" name="list_name" type="text" class="form-control" placeholder="Give your list a name" required>
           <div class="invalid-feedback">Required</div>
         </div>
         <div class="input-group mb-3">
           <div class="input-group-prepend col-3">
-            <span class="input-group-text col-12 center">Created By:</span>
+            <span class="input-group-text col-12 center mobile">Created By:</span>
+            <span class="input-group-text col-12 center desktop">Owner</span>
           </div>
           <input id="list_author" name="list_author" type="text" class="form-control" placeholder="Who is creating this list" required>
           <div class="invalid-feedback">Required</div>
@@ -30,50 +32,13 @@
             <div class="col-4"></div>
             <div class="col-4">
               <select id="categories" name="categories" class="custom-select uppercase center" required>
-                <option selected>Choose your Category</option>
-                {% for cat in clist %}
-                <option id="{{ cat.cat_name }}" name="{{ cat.cat_name }}">{{ cat.cat_name }}</option>
-                {% endfor %}
-              </select>
-            </div>
-            <div class="col-4"></div>
-          </div>
-        </div>
-        <div class="row bottom">
-          <div class="col">
-            <button class="btn button" type="submit">
-              Add Items
-            </button>
-          </div>
-        </div>
-      </form>
-      <form class="desktop" action="{{ url_for('insert_list') }}" method="POST">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend col-4">
-            <span class="input-group-text col-12 center">List</span>
-          </div>
-          <input id="list_name" name="list_name" type="text" class="form-control" placeholder="Give your list a name" required>
-          <div class="invalid-feedback">Required</div>
-        </div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend col-4">
-            <span class="input-group-text col-12 center">Owner</span>
-          </div>
-          <input id="list_author" name="list_author" type="text" class="form-control" placeholder="Who is creating this list" required>
-          <div class="invalid-feedback">Required</div>
-        </div>
-        <div class="dropdown">
-          <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-              <select id="categories" name="categories" class="custom-select uppercase center" required>
                 <option selected>Category</option>
                 {% for cat in clist %}
                 <option id="{{ cat.cat_name }}" name="{{ cat.cat_name }}">{{ cat.cat_name }}</option>
                 {% endfor %}
               </select>
             </div>
-            <div class="col-2"></div>
+            <div class="col-4"></div>
           </div>
         </div>
         <div class="row bottom">
