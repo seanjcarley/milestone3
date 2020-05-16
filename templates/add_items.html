@@ -8,41 +8,67 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
-      <div class="list-group">
-        {% for k, v in the_list.items() %}
-          {% if k == "list_name" %}
-            <a class="list-group-item">
-              List Name: {{ v }}
-            </a>
-          {% elif k == "list_author" %}
-            <a class="list-group-item">
-              Created by: {{ v }}
-            </a>
-          {% elif k == "categories" %}
-            <a class="list-group-item">
-              Category: {{ v }}
-            </a>
-          {% elif k == "created" %}
-            <a class="list-group-item">
-              Last Updated on: {{ v }}
-            </a>
-          {% endif %}
-        {% endfor %}
-      </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="uppercase">List</th>
+            <th class="uppercase">Created by</th>
+            <th class="uppercase">Category</th>
+            <th class="uppercase">Last Update</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {% for k, v in the_list.items() %}
+            <td class="lowercase">{{ v }}</td>
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <div class="col-md-1"></div>
   </div>
   {% if the_itm %}
   <div class="row">
     <div class="col-md-12">
-      {% for i in the_itm %}
-      </br>
-      {% for k, v in i.items() %}
-      {{ k }}: {{ v }}
-      {% endfor %}
-      </br>
-      {% endfor %}
+      <h4 class="section-header">Recently Added Items</h4>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <table class="table table-striped">
+        <thead>
+          {% for i in the_itm[0] %}
+          {% if i != "_id" %}
+          <th class="uppercase">{{ i }}</th>
+          {% endif %}
+          {% endfor %}
+        </thead>
+        <tbody>
+          {% for item in the_itm %}
+          <tr>
+          {% for k, v in item.items() %}
+          {% if k != "_id" %}
+          {% if k != "completed" %}
+            <td class="lowercase">{{ v }}</td>
+          {% else %}
+          {% if v == "on" %}
+            <td><input class="card-check" id="completed" name="completed" type="checkbox" checked disabled></td>
+          {% else %}
+            <td><input class="card-check" id="completed" name="completed" type="checkbox" disabled></td>
+          {% endif %}
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-1"></div>
   </div>
   {% endif %}
   <div class="row">
@@ -51,35 +77,42 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-1"></div>
+    <div class="col-md-10">
       <form class="" action="{{ url_for('add_items', obj=obid) }}" method="POST">
         {% for k, v in the_cat.items() %}
-          {% if k == "fields" %}
-              {% for i in v %}
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">{{ i }}</span>
-                </div>
-                <input id="{{ i }}" name="{{ i }}" type="text" class="form-control" placeholder="Enter {{ i }}">
-              </div>
-              {% endfor %}
-          {% endif %}
+        {% if k == "fields" %}
+        {% for i in v %}
+        <div class="input-group mb-3">
+          <div class="input-group-prepend col-3">
+            <span class="input-group-text col-12 uppercase">{{ i }}</span>
+          </div>
+          <input id="{{ i }}" name="{{ i }}" type="text" class="form-control lowercase" placeholder="Enter {{ i }}" required>
+          <div class="invalid-feedback">Required</div>
+        </div>
+        {% endfor %}
+        {% endif %}
         {% endfor%}
-        <div class="form-group form-check">
+        <div class="form-group form-check mb-3">
           <label class="form-check-label" for="completed">
             <input id="completed" name="completed" type="checkbox">
             Completed?
           </label>
         </div>
-        <button class="btn waves-effect waves-light" type="submit">
-          Add Item <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
-        </button>
-        <button class="btn" type="submit" name="action">
-          <a href="{{ url_for('finish_items') }}" class="waves-effect waves-light btn btn_small">
-            Finish <i class="fa fa-edit" aria-hidden="true"></i>
-          </a>
-        </button>
+        <div class="row bottom">
+          <div class="col">
+            <button class="btn button" type="submit">
+              Add Item
+            </button>
+            {% if the_itm %}
+              <a class="btn button" href="{{ url_for('finish_items') }}" class="waves-effect waves-light btn btn_small">
+                Finish
+              </a>
+            {% endif %}
+          </div>
+        </div>
       </form>
+      <div class="col-1"></div>
     </div>
   </div>
 </div>

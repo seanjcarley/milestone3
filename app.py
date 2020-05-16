@@ -104,9 +104,9 @@ def set_insert_items(list_id):
 
     return(itm_list, item_id)
 
-# The below function takes the title of the list item and searches wikipedia.com for 
-# an entry. There are a number of Errors that can be returned by the api, but for the 
-# purposes of this site a generic error is sufficient. There is the potential for 
+# The below function takes the title of the list item and searches wikipedia.com for
+# an entry. There are a number of Errors that can be returned by the api, but for the
+# purposes of this site a generic error is sufficient. There is the potential for
 # incorrect information to be displayed depending on the search term.
 def get_wiki(item_id):
     ttl = find_item_title(item_id)

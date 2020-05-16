@@ -4,7 +4,7 @@
 <div class="col-md-12 main-section">
 <div class="row">
   <div class="col-md-12">
-    <h3 class="section-header">All Lists</h3>
+    <h3 class="section-header">Lists</h3>
   </div>
 </div>
 <div class="row">
@@ -12,7 +12,6 @@
   <!-- This is used to load selected list items -->
   <div class="col-md-1"></div>
   <div class="col-md-10">
-    <h4>Lists</h4>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -24,20 +23,35 @@
         {% for list in lists %}
         <tr>
           <td>
-            <a href="{{ url_for('home', list_id=list._id) }}">{{ list.list_name }}</a>
+            <a class="list-link" href="{{ url_for('home', list_id=list._id) }}">{{ list.list_name }}</a>
           </td>
           <td>
-            <a href="{{ url_for('home', list_id=list._id) }}">{{ list.categories }}</a>
+            <a class="list-link" href="{{ url_for('home', list_id=list._id) }}">{{ list.categories }}</a>
           </td>
-          <td>
-            <div class="btn-group" role="group" aria-label="List Actions">
-              <a class="btn-secondary" href="{{ url_for('add_aitems', obj=list._id) }}" role="button">
+          <td class="mobile">
+            <a class="btn button" href="{{ url_for('add_aitems', obj=list._id) }}" role="button">
+              <i class="fas fa-plus"></i> Add
+            </a>
+          </td>
+          <td class="mobile">
+            <a class="btn button" href="{{ url_for('edit_list', list_id=list._id)}}" role="button">
+              <i class="fas fa-edit"></i> Edit
+            </a>
+          </td>
+          <td class="mobile">
+            <a class="btn button" href="{{ url_for('delete_list', list_id=list._id ) }}" role="button">
+              <i class="far fa-trash-alt"></i> Delete
+            </a>
+          </td>
+          <td class="desktop">
+            <div class="btn-group btn-group-sm">
+              <a class="btn button-small" href="{{ url_for('add_aitems', obj=list._id) }}" role="button">
                 <i class="fas fa-plus"></i>
               </a>
-              <a class="btn-secondary" href="{{ url_for('edit_list', list_id=list._id)}}" role="button">
+              <a class="btn button-small" href="{{ url_for('edit_list', list_id=list._id)}}" role="button">
                 <i class="fas fa-edit"></i>
               </a>
-              <a class="btn-secondary" href="{{ url_for('delete_list', list_id=list._id ) }}" role="button">
+              <a class="btn button-small" href="{{ url_for('delete_list', list_id=list._id ) }}" role="button">
                 <i class="far fa-trash-alt"></i>
               </a>
             </div>
@@ -52,7 +66,7 @@
 <div class="row">
   <div class="col-md-1"></div>
   <div class="col-md-10">
-    <h4>List Items</h4>
+    <h4 class="section-header">List Items</h4>
     <div id="accordion_2">
       {% for item in ilist %}
       <div class="card">
@@ -63,26 +77,35 @@
         </div>
         <div id="c{{ loop.index }}" class="collapse" data-parent="#accordion_2">
           <div class="card-body">
-            <div class="row-card">
-              <div class="col-xs-6">
+            <div class="row">
                 {% for k, v in item.items() %}
                 {% if k != "_id" and k != "list_id" and k != "title" and k != "released" and k != "info" %}
                 {% if k != "completed" %}
-                  {{ k }}: {{ v }}<br/>
+                <div class="col">
+                  <h6 class="uppercase">{{ k }}:</h6>
+                  <p class="card-para lowercase">{{ v }}</p>
+                </div>
                 {% else %}
                 {% if v == "on" %}
-                  <td><input id="completed" name="completed" type="checkbox" checked disabled></td>
+                <div class="col">
+                  <h6 class="uppercase">completed: </h6>
+                  <input class="card-check" id="completed" name="completed" type="checkbox" checked disabled>
+                </div>
                 {% else %}
-                  <td><input id="completed" name="completed" type="checkbox"></td>
+                <div class="col">
+                  <h6 class="uppercase">completed: </h6>
+                  <input class="card-check" id="completed" name="completed" type="checkbox" disabled>
+                </div>
                 {% endif %}
                 {% endif %}
                 {% endif %}
                 {% endfor %}
-              </div>
-              <div class="col-xs-6">
+            </div>
+            <div class="row">
+              <div class="col">
                 {% for l, w in item.info.items() %}
-                <h5>{{ l }}</h5>
-                {{ w }}
+                <h5 class="section-header">{{ l }}</h5>
+                <p>{{ w }}</p>
                 {% endfor %}
               </div>
             </div>
@@ -97,7 +120,6 @@
   <!-- This is used for the initial load of the webpage -->
   <div class="col-md-1"></div>
   <div class="col-md-10">
-    <h4>Lists</h4>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -115,7 +137,7 @@
           <td>{{ list.categories }}</td>
           <td class="mobile">{{ list.list_author }}</td>
           <td class="mobile">{{ list.created }}</td>
-          <td><a href="{{ url_for('home', list_id=list._id) }}" class="btn btn-info" role="button">Show</a></td>
+          <td><a href="{{ url_for('home', list_id=list._id) }}" class="btn button" role="button">Show</a></td>
         </tr>
         {% endfor %}
       </tbody>
@@ -127,12 +149,10 @@
 <div class="row bottom">
   <div class="col-md-12">
     <h4 class="section-header">Create a List</h4>
-    <button class="button" type="button" name="button">
-      <a href="{{ url_for('create') }}">
+      <a class="btn button" href="{{ url_for('create') }}">
         <i class="fa fa-list" aria-hidden="true"></i>
         Create
       </a>
-    </button>
   </div>
 </div>
 </div>
