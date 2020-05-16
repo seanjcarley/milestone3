@@ -225,6 +225,10 @@ th {
   color: #beb7a4;
 }
 
+.input-group-prepend {
+  padding: 0;
+}
+
 .form-control {
   background-color: #beb7a4;
   color: #3d348b;
@@ -238,6 +242,11 @@ th {
 .custom-select {
   background-color: #3d348b;
   color: #beb7a4;
+}
+
+.form-control:disabled {
+  background-color: #3d348b;
+  color: #e6af2e;
 }
 
 .desktop {

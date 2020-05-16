@@ -16,13 +16,17 @@
             <th class="uppercase">List</th>
             <th class="uppercase">Created by</th>
             <th class="uppercase">Category</th>
-            <th class="uppercase">Last Update</th>
+            <th class="uppercase mobile">Last Update</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             {% for k, v in the_list.items() %}
+            {% if k != "created" %}
             <td class="lowercase">{{ v }}</td>
+            {% else %}
+            <td class="lowercase mobile">{{ v }}</td>
+            {% endif %}
             {% endfor %}
           </tr>
         </tbody>
@@ -41,11 +45,17 @@
     <div class="col-10">
       <table class="table table-striped">
         <thead>
+          <tr>
           {% for i in the_itm[0] %}
           {% if i != "_id" %}
-          <th class="uppercase">{{ i }}</th>
+          {% if i == "title" %}
+            <th class="uppercase">{{ i }}</th>
+          {% else %}
+            <th class="uppercase mobile">{{ i }}</td>
+          {% endif %}
           {% endif %}
           {% endfor %}
+          </tr>
         </thead>
         <tbody>
           {% for item in the_itm %}
@@ -53,7 +63,11 @@
           {% for k, v in item.items() %}
           {% if k != "_id" %}
           {% if k != "completed" %}
+          {% if k == "title" %}
             <td class="lowercase">{{ v }}</td>
+          {% else %}
+            <td class="lowercase mobile">{{ v }}</td>
+          {% endif %}
           {% else %}
           {% if v == "on" %}
             <td><input class="card-check" id="completed" name="completed" type="checkbox" checked disabled></td>
@@ -76,7 +90,7 @@
       <h4 class="section-header">Add items to your list</h4>
     </div>
   </div>
-  <div class="row">
+  <div class="row mobile">
     <div class="col-1"></div>
     <div class="col-md-10">
       <form class="" action="{{ url_for('add_items', obj=obid) }}" method="POST">
@@ -113,6 +127,43 @@
         </div>
       </form>
       <div class="col-1"></div>
+    </div>
+  </div>
+  <div class="row desktop">
+    <div class="col-md-12">
+      <form class="" action="{{ url_for('add_items', obj=obid) }}" method="POST">
+        {% for k, v in the_cat.items() %}
+        {% if k == "fields" %}
+        {% for i in v %}
+        <div class="input-group mb-1">
+          <div class="input-group-prepend col-4">
+            <span class="input-group-text col-12 lowercase">{{ i }}</span>
+          </div>
+          <input id="{{ i }}" name="{{ i }}" type="text" class="form-control lowercase" placeholder="Enter {{ i }}" required>
+          <div class="invalid-feedback">Required</div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endfor%}
+        <div class="form-group form-check mb-3">
+          <label class="form-check-label" for="completed">
+            <input id="completed" name="completed" type="checkbox">
+            Completed?
+          </label>
+        </div>
+        <div class="row bottom">
+          <div class="col">
+            <button class="btn button" type="submit">
+              Add Item
+            </button>
+            {% if the_itm %}
+              <a class="btn button" href="{{ url_for('finish_items') }}">
+                Finish
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

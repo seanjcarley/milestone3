@@ -59,13 +59,15 @@
           {% endif %}
           {% endfor %}
         </div>
-        <input type="submit" name="" value="Update List">
+        <div class="row bottom">
+          <div class="col">
+            <button class="btn button" type="submit">
+              Update
+            </button>
+            <a class="btn button" href="{{ url_for('finish_items') }}">Finish</a>
+          </div>
+        </div>
       </form>
-      <button class="btn" type="submit" name="action">
-        <a href="{{ url_for('finish_items') }}" class="waves-effect waves-light btn btn_small">
-          Finish <i class="fa fa-edit" aria-hidden="true"></i>
-        </a>
-      </button>
     </div>
   </div>
   <div class="row">
@@ -73,53 +75,118 @@
       <h3 class="section-header">Edit List Items</h3>
     </div>
   </div>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        {% for i in the_itm[0] %}
-        {% if i != "_id" %}
-          <th class="uppercase">{{ i }}</th>
-        {% endif %}
+  <div class="row mobile">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <table class="table table-striped mobile">
+          <thead>
+            <tr>
+            {% for i in the_itm[0] %}
+            {% if i != "_id" %}
+              <th class="uppercase">{{ i }}</th>
+            {% endif %}
+            {% endfor %}
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for j in the_itm %}
+            <tr>
+              <form class="" action="{{ url_for('update_item', list_id=obid, item_id=j._id) }}" method="post">
+              {% for k, v in j.items() %}
+              {% if k != "_id" %}
+                <td>
+                {% if k != 'completed' %}
+                  <input id="{{ k }}" name="{{ k }}" type="text" class="form-control" value="{{ v }}">
+                {% else %}
+                {% if k == "completed" %}
+                {% if v == "on" %}
+                  <input id="completed" name="completed" type="checkbox" checked>
+                {% else %}
+                  <input id="completed" name="completed" type="checkbox">
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                </td>
+              {% endif %}
+              {% endfor %}
+              {% for l, w in j.items() %}
+              {% if l == "_id" %}
+              <td>
+                <button class="btn button" type="submit" name="">
+                  Edit Item <i class="fa fa-edit" aria-hidden="true"></i>
+                </button>
+              </td>
+              <td>
+                <a class="btn button" href="{{ url_for('delete_item', item_id=j._id) }}">
+                  Delete <i class="far fa-trash-alt"></i>
+                </a>
+              </td>
+              {% endif %}
+              {% endfor %}
+            </form>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+  <div class="row desktop">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div id="accordion_mobile">
+        {% for i in the_itm %}
+        <div class="card">
+          <div class="card-header">
+            <a class="card-link" data-toggle="collapse" href="#c{{ loop.index }}">
+              <h5>{{ i.title }}</h5>
+            </a>
+          </div>
+          <div id="c{{ loop.index }}" class="collapse" data-parent="#accordion_mobile">
+            <div class="card-body">
+              <form class="" action="{{ url_for('update_item', list_id=obid, item_id=i._id) }}" method="post">
+                {% for k, v in i.items() %}
+                {% if k != "_id" %}
+                {% if k != 'completed' %}
+                  <input id="{{ k }}" name="{{ k }}" type="text" class="form-control" value="{{ v }}">
+                {% else %}
+                {% if k == "completed" %}
+                {% if v == "on" %}
+                  <input id="completed" name="completed" type="checkbox" checked>
+                {% else %}
+                  <input id="completed" name="completed" type="checkbox">
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                {% for l, w in i.items() %}
+                {% if l == "_id" %}
+                <td>
+                  <button class="btn button" type="submit" name="">
+                    Edit Item <i class="fa fa-edit" aria-hidden="true"></i>
+                  </button>
+                  <a class="btn button" href="{{ url_for('delete_item', item_id=i._id) }}">
+                    Delete <i class="far fa-trash-alt"></i>
+                  </a>
+                </td>
+                {% endif %}
+                {% endfor %}
+              </form>
+            </div>
+          </div>
+        </div>
         {% endfor %}
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for j in the_itm %}
-      <tr>
-        <form class="" action="{{ url_for('update_item', list_id=obid, item_id=j._id) }}" method="post">
-      {% for k, v in j.items() %}
-      {% if k != "_id" %}
-        <td>
-          {% if k != 'completed' %}
-          <input id="{{ k }}" name="{{ k }}" type="text" class="form-control" value="{{ v }}">
-          {% else %}
-          {% if k == "completed" %}
-          {% if v == "on" %}
-          <input id="completed" name="completed" type="checkbox" checked>
-          {% else %}
-          <input id="completed" name="completed" type="checkbox">
-          {% endif %}
-          {% endif %}
-          {% endif %}
-        </td>
-      {% endif %}
-      {% endfor %}
-      {% for l, w in j.items() %}
-      {% if l == "_id" %}
-        <td>
-          <button class="btn" type="submit" name="">
-            Edit Item <i class="fa fa-edit" aria-hidden="true"></i>
-          </button>
-        </td>
-      {% endif %}
-      {% endfor %}
-    </form>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  </form>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+  <div class="row bottom">
+    <div class="col">
+      <a class="btn button" href="{{ url_for('finish_items') }}">Finish</a>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
